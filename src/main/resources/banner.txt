@@ -1,0 +1,8 @@
+,------.                   ,--.
+|  .--. '  ,---.   ,--,--. |  |  ,---.
+|  '--'.' | .-. : ' ,-.  | |  | | .-. |
+|  |\  \  \   --. \ '-'  | |  | ' '-' '
+`--' '--'  `----'  `--`--' `--'  `---'
+
+https://github.com/h1alexbel/realo-REST/tree/main
+Powered by Spring Boot ${spring-boot.version}

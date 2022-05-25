@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: postgres
+    password: pass
+    url: jdbc:postgresql://localhost:5434/realo
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties.hibernate:
+      show_sql: true
+      format_sql: true
+    hibernate:
+      ddl-auto: none
+logging:
+  level:
+    root: INFO
+    org.springframework.jdbc.core: DEBUG
+  file:
+    name: realo.log
+    path: /
