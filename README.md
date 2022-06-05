@@ -1,3 +1,3 @@
 # realo - realo-api
 
-[![Pull Requests] (https://img.shields.io/github/issues-pr/h1alexbel/realo)]
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/h1alexbel/realo)]
