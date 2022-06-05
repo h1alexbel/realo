@@ -137,6 +137,11 @@
                             <artifactId>javax.persistence-api</artifactId>
                             <version>2.2</version>
                         </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.4.2.Final</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
