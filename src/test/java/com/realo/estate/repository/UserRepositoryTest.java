@@ -1,11 +1,13 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.domain.persistent.user.User;
+import com.realo.estate.integration.TestcontainersTest;
+import com.realo.estate.repository.filter.UserFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -74,66 +76,49 @@ class UserRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find all by Users firstname and lastname default test case")
     void findAllByFirstNameAndLastNameTestCase() {
-        List<User> users = userRepository.findAllByFirstNameAndLastName(JOHN, DOE);
-        assertThat(users).hasSize(2);
+        UserFilter filter = UserFilter.builder()
+                .firstName(JOHN)
+                .lastName(DOE)
+                .build();
+        List<User> users = userRepository.findByFilter(filter);
+        assertThat(users).hasSize(1);
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User null and empty firstName test case")
-    void findAllByFirstNameNullAndEmptyCaseAndLastName(String firstName) {
+    @NullSource
+    @DisplayName("Find all by UserFilter null test case")
+    void findAllByFilterNullCase(UserFilter userFilter) {
         assertDoesNotThrow(() -> userRepository
-                .findAllByFirstNameAndLastName(firstName, DOE));
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User null and empty lastName test case")
-    void findAllByLastNameNullAndEmptyCaseAndFirstName(String lastName) {
-        assertDoesNotThrow(() -> userRepository
-                .findAllByFirstNameAndLastName(JOHN, lastName));
+                .findByFilter(userFilter));
     }
 
     @Test
     @DisplayName("Find all by User firstname default test case")
     void findAllByFirstNameTestCase() {
-        List<User> johns = userRepository.findAllByFirstName(JOHN);
+        UserFilter userFilter = UserFilter.builder()
+                .firstName(JOHN).build();
+        List<User> johns = userRepository.findByFilter(userFilter);
         assertThat(johns).hasSize(3);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User firstname null and empty case")
-    void findAllByFirstNameNullAndEmptyCase(String firstName) {
-        assertDoesNotThrow(() -> userRepository.findAllByFirstName(firstName));
     }
 
     @Test
     @DisplayName("Find all by User lastname default test case")
     void findAllByLastNameTestCase() {
-        List<User> users = userRepository.findAllByLastName(IVANOV);
+        UserFilter userFilter = UserFilter.builder()
+                .lastName(IVANOV)
+                .build();
+        List<User> users = userRepository.findByFilter(userFilter);
         assertThat(users).hasSize(5);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User lastname null and empty case")
-    void findAllByLastNameNullAndEmptyCase(String lastName) {
-        assertDoesNotThrow(() -> userRepository.findAllByLastName(lastName));
     }
 
     @Test
     @DisplayName("Find all by User country default test case")
     void findAllByCountryTestCase() {
-        List<User> usersFromBelarus = userRepository.findAllByCountry(BELARUS);
+        UserFilter userFilter = UserFilter.builder()
+                .country(BELARUS)
+                .build();
+        List<User> usersFromBelarus = userRepository.findByFilter(userFilter);
         assertThat(usersFromBelarus).hasSize(7);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User country null and empty case")
-    void findAllByCountryNullAndEmptyCase(String country) {
-        assertDoesNotThrow(() -> userRepository.findAllByCountry(country));
     }
 
     @Test

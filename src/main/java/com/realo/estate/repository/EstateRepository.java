@@ -10,26 +10,18 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface EstateRepository extends JpaRepository<Estate, Long>,
+public interface EstateRepository extends
+        JpaRepository<Estate, Long>,
+        FilterEstateRepository,
         RevisionRepository<Estate, Long, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query("update Estate e set e.estateType = :estateType where e.id =:id")
     void updateEstateTypeById(@Param("estateType") EstateType estateTypeToSet, Long id);
 
-    List<Estate> findAllByProviderName(String providerName);
-
     List<Estate> findAllByEstateType(EstateType estateType);
-
-    List<Estate> findAllByAddressCity(String city);
-
-    List<Estate> findAllByAddressCountry(String country);
 
     List<Estate> findAllByYearOfConstruction(Integer year);
 
-    List<Estate> findAllByYearOfConstructionBetween(Integer yearFrom, Integer yearTo);
-
     List<Estate> findAllBySquare(Double square);
-
-    List<Estate> findAllBySquareBetween(Double start, Double to);
 }

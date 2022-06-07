@@ -1,10 +1,9 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.domain.persistent.announcement.Announcement;
 import com.realo.estate.domain.persistent.announcement.AnnouncementType;
 import com.realo.estate.domain.persistent.announcement.CurrencyType;
-import com.realo.estate.domain.persistent.estate.EstateType;
+import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,13 +37,13 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
         Optional<Announcement> maybeAnnouncement = announcementRepo.findById(1L);
         if (maybeAnnouncement.isPresent()) {
             Announcement announcement = maybeAnnouncement.get();
-            announcementRepo.updateAnnouncementTypeById(AnnouncementType.LONG_TERN_RENT,
+            announcementRepo.updateAnnouncementTypeById(AnnouncementType.LONG_TERM_RENT,
                     announcement.getId());
             Optional<Announcement> maybeAnnouncementAfter = announcementRepo
                     .findById(announcement.getId());
             assertThat(maybeAnnouncementAfter).isNotEmpty();
             assertThat(maybeAnnouncementAfter.get().getAnnouncementType())
-                    .isEqualTo(AnnouncementType.LONG_TERN_RENT);
+                    .isEqualTo(AnnouncementType.LONG_TERM_RENT);
         }
     }
 
@@ -109,125 +108,57 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     }
 
     @Test
-    @DisplayName("Find all by EstateType default test case")
-    void findAllByEstateTypeTestCase() {
-        List<Announcement> commercials = announcementRepo
-                .findAllByEstateType(EstateType.COMMERCIAL);
-        assertThat(commercials).hasSize(5);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by EstateType Null case")
-    void findAllByEstateTypeNullCase(EstateType estateType) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByEstateType(estateType));
-    }
-
-    @Test
     @DisplayName("Find all by Metro station default test case")
     void findAllByByMetroStationTestCase() {
+        AnnouncementFilter announcementFilter = AnnouncementFilter.builder()
+                .metroStation(MOSKOVSKAYA)
+                .build();
         List<Announcement> announcements = announcementRepo
-                .findAllByClosestMetroStation(MOSKOVSKAYA);
+                .findByFilter(announcementFilter);
         assertThat(announcements).hasSize(1);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by Metro station null and empty case")
-    void findAllByMetroStationNullAndEmptyCase(String station) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByClosestMetroStation(station));
     }
 
     @Test
     @DisplayName("Find all by Estate district default test case")
     void findAllByDistrictTestCase() {
-        List<Announcement> announcements = announcementRepo.findAllByDistrict(CENTRAL_MAIN_DISTRICT);
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .district(CENTRAL_MAIN_DISTRICT)
+                .build();
+        List<Announcement> announcements = announcementRepo.findByFilter(filter);
         assertThat(announcements).hasSize(2);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by Estate district null and empty test case")
-    void findAllByDistrictNullAndEmptyCase(String district) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByDistrict(district));
     }
 
     @Test
     @DisplayName("Find all by Estate Year of construction default test case")
     void findAllByYearOfConstruction() {
-        List<Announcement> announcements = announcementRepo.findAllByYearOfConstruction(2018);
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .yearOfConstruction(2018)
+                .build();
+        List<Announcement> announcements = announcementRepo.findByFilter(filter);
         assertThat(announcements).hasSize(4);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction null test case")
-    void findAllByYearOfConstructionNullAndEmptyCase(Integer year) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByYearOfConstruction(year));
-    }
-
-    @Test
-    @DisplayName("Find all by Estate Year of construction between default test case")
-    void findAllByYearOfConstructionBetweenTestCase() {
-        List<Announcement> announcements = announcementRepo
-                .findAllByYearOfConstructionBetween(2016, 2021);
-        assertThat(announcements).hasSize(10);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction from null test case")
-    void findAllByYearOfConstructionBetweenFromNullCase(Integer from) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByYearOfConstructionBetween(from, 2021));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction to null test case")
-    void findAllByYearOfConstructionBetweenToNullCase(Integer to) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByYearOfConstructionBetween(2016, to));
     }
 
     @Test
     @DisplayName("Find all by Estate Square between default test case")
     void findAllBySquareBetweenTestCase() {
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .fromSquare(45.2)
+                .toSquare(78.0)
+                .build();
         List<Announcement> announcements = announcementRepo
-                .findAllByEstateSquareBetween(45.2, 78.0);
+                .findByFilter(filter);
         assertThat(announcements).hasSize(6);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Square from null test case")
-    void findAllBySquareBetweenFromNullCase(Double from) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByEstateSquareBetween(from, 78.0));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Square to null test case")
-    void findAllBySquareBetweenToNullCase(Double to) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByEstateSquareBetween(45.2, to));
     }
 
     @Test
     @DisplayName("Find all by Announcement Author login default test case")
     void findAllByAuthorLoginTestCase() {
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .authorLogin(ALEXEY_77_LOGIN)
+                .build();
         List<Announcement> announcements = announcementRepo
-                .findAllByAnnouncementAuthorLogin(ALEXEY_77_LOGIN);
+                .findByFilter(filter);
         assertThat(announcements).hasSize(2);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by Announcement Author login null and empty test case")
-    void findAllByAuthorLoginNullAndEmptyCase(String login) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByAnnouncementAuthorLogin(login));
     }
 
     @Test
@@ -277,25 +208,13 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find all by Price and CurrencyType default test case")
     void findAllByPriceAndCurrencyTypeTestCase() {
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .currencyType(CurrencyType.BYN)
+                .toPrice(new BigDecimal(200_000))
+                .build();
         List<Announcement> announcements = announcementRepo
-                .findAllByPriceAndCurrencyType(new BigDecimal(200_000), CurrencyType.BYN);
+                .findByFilter(filter);
         assertThat(announcements).hasSize(3);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Price and CurrencyType price null test case")
-    void findAllByPriceNullAndCurrencyTypeCase(BigDecimal maxPrice) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByPriceAndCurrencyType(maxPrice, CurrencyType.EUR));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Price and CurrencyType null test case")
-    void findAllByPriceAndCurrencyTypeNullCase(CurrencyType currencyType) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByPriceAndCurrencyType(new BigDecimal(200_000), currencyType));
     }
 
     @Test
@@ -303,58 +222,35 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     void findAllByPriceBetweenAndCurrencyTypeTestCase() {
         BigDecimal from = new BigDecimal(45_000);
         BigDecimal to = new BigDecimal(55_000);
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .fromPrice(from)
+                .toPrice(to)
+                .currencyType(CurrencyType.EUR)
+                .build();
         List<Announcement> announcements = announcementRepo
-                .findAllByPriceBetweenAndCurrencyType(from, to, CurrencyType.EUR);
+                .findByFilter(filter);
         assertThat(announcements).hasSize(2);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Price between and CurrencyType from null case")
-    void findAllByPriceBetweenFromNullAndCurrencyTypeCase(BigDecimal from) {
-        BigDecimal to = new BigDecimal(55_000);
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByPriceBetweenAndCurrencyType
-                        (from, to, CurrencyType.RUB));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Price between and CurrencyType to null case")
-    void findAllByPriceBetweenToNullAndCurrencyTypeCase(BigDecimal to) {
-        BigDecimal from = new BigDecimal(45_000);
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByPriceBetweenAndCurrencyType
-                        (from, to, CurrencyType.RUB));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Price between and CurrencyType null case")
-    void findAllByPriceBetweenAndCurrencyTypeNullCase(CurrencyType currencyType) {
-        BigDecimal from = new BigDecimal(45_000);
-        BigDecimal to = new BigDecimal(55_000);
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByPriceBetweenAndCurrencyType
-                        (from, to, currencyType));
     }
 
     @Test
     @DisplayName("Find all Announcements with Loan option")
     void findAllWithLoanOptionTestCase() {
-        List<Announcement> allWithLoanOption = announcementRepo.findAllWithLoanOption();
+        AnnouncementFilter filter = AnnouncementFilter.builder()
+                .isLoanable(true)
+                .build();
+        List<Announcement> allWithLoanOption = announcementRepo.findByFilter(filter);
         assertThat(allWithLoanOption).hasSize(3);
     }
 
     @Test
     @DisplayName("Find by match default test case")
     void findByMatchDefaultTestCase() {
-        List<Announcement> byMatch = announcementRepo.findByMatch(
+        List<Announcement> byMatch = announcementRepo.findByFilter(
                 AnnouncementFilter.builder()
                         .yearOfConstruction(2012)
                         .currencyType(CurrencyType.USD)
-                        .minPrice(new BigDecimal(1200))
-                        .maxPrice(new BigDecimal(67000))
+                        .fromPrice(new BigDecimal(1200))
+                        .toPrice(new BigDecimal(67000))
                         .build()
         );
         assertThat(byMatch).isNotEmpty();
@@ -363,11 +259,11 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find by match another default test case")
     void findByMatchAnotherDefaultTestCase() {
-        List<Announcement> byMatch = announcementRepo.findByMatch(
+        List<Announcement> byMatch = announcementRepo.findByFilter(
                 AnnouncementFilter.builder()
                         .yearOfConstruction(2020)
                         .currencyType(CurrencyType.EUR)
-                        .maxPrice(new BigDecimal(58500))
+                        .toPrice(new BigDecimal(58500))
                         .build()
         );
         assertThat(byMatch).isNotEmpty().hasSize(2);
@@ -377,6 +273,6 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @NullSource
     @DisplayName("Find by match null case")
     void findByMatchNullCase(AnnouncementFilter filter) {
-        assertDoesNotThrow(() -> announcementRepo.findByMatch(filter));
+        assertDoesNotThrow(() -> announcementRepo.findByFilter(filter));
     }
 }

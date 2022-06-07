@@ -1,4 +1,4 @@
-package com.realo.estate.querydsl;
+package com.realo.estate.repository.filter.querydsl;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
