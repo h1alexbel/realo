@@ -12,10 +12,16 @@ import java.math.BigDecimal;
 public class AnnouncementFilter {
 
     AnnouncementType announcementType;
+    String country;
+    String city;
+    String district;
+    String metroStation;
     Integer yearOfConstruction;
-    Double minSquare;
-    Double maxSquare;
+    Double fromSquare;
+    Double toSquare;
     CurrencyType currencyType;
-    BigDecimal minPrice;
-    BigDecimal maxPrice;
+    BigDecimal fromPrice;
+    BigDecimal toPrice;
+    String authorLogin;
+    Boolean isLoanable;
 }

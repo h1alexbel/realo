@@ -3,34 +3,38 @@ package com.realo.estate.repository.impl;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.realo.estate.domain.persistent.announcement.Announcement;
-import com.realo.estate.querydsl.QPredicates;
 import com.realo.estate.repository.FilterAnnouncementRepository;
 import com.realo.estate.repository.filter.AnnouncementFilter;
+import com.realo.estate.repository.filter.querydsl.QPredicates;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.realo.estate.domain.persistent.announcement.QAnnouncement.announcement;
 
+@RequiredArgsConstructor
 public class FilterAnnouncementRepositoryImpl implements FilterAnnouncementRepository {
 
     private final EntityManager entityManager;
 
-    public FilterAnnouncementRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     @Override
-    public List<Announcement> findByMatch(AnnouncementFilter filter) {
+    public List<Announcement> findByFilter(AnnouncementFilter filter) {
         Predicate predicate = QPredicates.builder()
                 .add(filter.getAnnouncementType(), announcement.announcementType::eq)
+                .add(filter.getCountry(), announcement.estate.address.country::eq)
+                .add(filter.getCity(), announcement.estate.address.city::eq)
+                .add(filter.getDistrict(), announcement.estate.address.district::eq)
+                .add(filter.getMetroStation(), announcement.estate.address.closestMetroStation::eq)
                 .add(filter.getCurrencyType(), announcement.paymentInfo.currencyType::eq)
-                .add(filter.getMinPrice(), announcement.paymentInfo.price::gt)
-                .add(filter.getMaxPrice(), announcement.paymentInfo.price::lt)
+                .add(filter.getFromPrice(), announcement.paymentInfo.price::goe)
+                .add(filter.getToPrice(), announcement.paymentInfo.price::loe)
                 .add(filter.getYearOfConstruction(),
                         announcement.estate.yearOfConstruction::eq)
-                .add(filter.getMinSquare(), announcement.estate.square::gt)
-                .add(filter.getMaxSquare(), announcement.estate.square::lt)
+                .add(filter.getFromSquare(), announcement.estate.square::goe)
+                .add(filter.getToSquare(), announcement.estate.square::loe)
+                .add(filter.getIsLoanable(), announcement.paymentInfo.isLoanPossible::eq)
+                .add(filter.getAuthorLogin(), announcement.announcementAuthor.login::eq)
                 .build();
         return new JPAQuery<Announcement>(entityManager)
                 .select(announcement)

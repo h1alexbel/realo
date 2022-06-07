@@ -1,12 +1,12 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.domain.persistent.estate.Estate;
 import com.realo.estate.domain.persistent.estate.EstateType;
+import com.realo.estate.integration.TestcontainersTest;
+import com.realo.estate.repository.filter.EstateFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,15 +54,18 @@ class EstateRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find all by Provider name default test case")
     void findAllByProviderNameTestCase() {
-        List<Estate> estates = estateRepository.findAllByProviderName(A100_DEVELOPMENT);
-        assertThat(estates).hasSize(3);
+        EstateFilter filter = EstateFilter.builder()
+                .providerName("A100 Development")
+                .build();
+        List<Estate> estates = estateRepository.findByFilter(filter);
+        assertThat(estates).hasSize(1);
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
+    @NullSource
     @DisplayName("Find all by Provider name null and empty case")
-    void findAllByProviderNameNullAndEmptyCase(String providerName) {
-        assertDoesNotThrow(() -> estateRepository.findAllByProviderName(providerName));
+    void findAllByFilterNullCase(EstateFilter estateFilter) {
+        assertDoesNotThrow(() -> estateRepository.findByFilter(estateFilter));
     }
 
     @Test
@@ -82,29 +85,21 @@ class EstateRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find all by Estate City default test case")
     void findAllByCityTestCase() {
-        List<Estate> estates = estateRepository.findAllByAddressCity(MOSCOW);
+        EstateFilter estateFilter = EstateFilter.builder()
+                .city(MOSCOW)
+                .build();
+        List<Estate> estates = estateRepository.findByFilter(estateFilter);
         assertThat(estates).hasSize(4);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by Estate City null and empty case")
-    void findAllByCityNullAndEmptyCase(String city) {
-        assertDoesNotThrow(() -> estateRepository.findAllByAddressCity(city));
     }
 
     @Test
     @DisplayName("Find all by Estate Country default test case")
     void findAllByCountryTestCase() {
-        List<Estate> estates = estateRepository.findAllByAddressCountry(UKRAINE);
+        EstateFilter estateFilter = EstateFilter.builder()
+                .country(UKRAINE)
+                .build();
+        List<Estate> estates = estateRepository.findByFilter(estateFilter);
         assertThat(estates).hasSize(2);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by Estate Country null and empty case")
-    void findAllByCountryNullAndEmptyCase(String country) {
-        assertDoesNotThrow(() -> estateRepository.findAllByAddressCountry(country));
     }
 
     @Test
@@ -138,48 +133,24 @@ class EstateRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find all by Estate Year of construction between two values default test case")
     void findAllByYearBetweenTestCase() {
+        EstateFilter estateFilter = EstateFilter.builder()
+                .yearFrom(2008)
+                .yearTo(2012)
+                .build();
         List<Estate> estates = estateRepository
-                .findAllByYearOfConstructionBetween(2008, 2012);
+                .findByFilter(estateFilter);
         assertThat(estates).hasSize(2);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction between from null case")
-    void findAllByYearBetweenYearFromNullCase(Integer from) {
-        assertDoesNotThrow(() -> estateRepository
-                .findAllByYearOfConstructionBetween(from, 2021));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction between to null case")
-    void findAllByYearBetweenYearToNullCase(Integer to) {
-        assertDoesNotThrow(() -> estateRepository
-                .findAllByYearOfConstructionBetween(2018, to));
     }
 
     @Test
     @DisplayName("Find all by Estate Square between two values default test case")
     void findAllBySquareBetweenTestCase() {
+        EstateFilter estateFilter = EstateFilter.builder()
+                .squareFrom(45.0)
+                .squareTo(62.5)
+                .build();
         List<Estate> estates = estateRepository
-                .findAllBySquareBetween(45.0, 62.5);
+                .findByFilter(estateFilter);
         assertThat(estates).hasSize(5);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Square between start null case")
-    void findAllBySquareBetweenStartNullCase(Double start) {
-        assertDoesNotThrow(() -> estateRepository
-                .findAllBySquareBetween(start, 84.0));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Square between to null case")
-    void findAllBySquareBetweenToNullCase(Double to) {
-        assertDoesNotThrow(() -> estateRepository
-                .findAllBySquareBetween(70.0, to));
     }
 }
