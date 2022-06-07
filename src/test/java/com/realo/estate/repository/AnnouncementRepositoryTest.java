@@ -1,10 +1,10 @@
 package com.realo.estate.repository;
 
 import com.realo.estate.integration.TestcontainersTest;
-import com.realo.estate.model.announcement.Announcement;
-import com.realo.estate.model.announcement.AnnouncementType;
-import com.realo.estate.model.announcement.CurrencyType;
-import com.realo.estate.model.estate.EstateType;
+import com.realo.estate.domain.persistent.announcement.Announcement;
+import com.realo.estate.domain.persistent.announcement.AnnouncementType;
+import com.realo.estate.domain.persistent.announcement.CurrencyType;
+import com.realo.estate.domain.persistent.estate.EstateType;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

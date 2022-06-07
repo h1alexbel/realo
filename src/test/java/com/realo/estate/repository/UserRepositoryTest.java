@@ -1,7 +1,7 @@
 package com.realo.estate.repository;
 
 import com.realo.estate.integration.TestcontainersTest;
-import com.realo.estate.model.user.User;
+import com.realo.estate.domain.persistent.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
