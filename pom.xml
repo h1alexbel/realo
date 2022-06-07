@@ -115,6 +115,7 @@
                         </annotationProcessor>
                         <annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
                         <annotationProcessor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</annotationProcessor>
+                        <annotationProcessor>org.mapstruct.ap.MappingProcessor</annotationProcessor>
                     </annotationProcessors>
                     <annotationProcessorPaths>
                         <path>
@@ -132,10 +133,23 @@
                             <artifactId>hibernate-jpamodelgen</artifactId>
                             <version>5.6.8.Final</version>
                         </path>
+
                         <path>
                             <groupId>javax.persistence</groupId>
                             <artifactId>javax.persistence-api</artifactId>
                             <version>2.2</version>
+                        </path>
+
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.4.2.Final</version>
+                        </path>
+
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -154,7 +168,7 @@
                         <configuration>
                             <targetFolder>target/generated-sources/java</targetFolder>
                             <packages>
-                                <package>com.realo.estate.model</package>
+                                <package>com.realo.estate.domain</package>
                             </packages>
                         </configuration>
                     </execution>
