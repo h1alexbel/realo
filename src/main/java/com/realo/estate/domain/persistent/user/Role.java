@@ -1,4 +1,4 @@
-package com.realo.estate.model.user;
+package com.realo.estate.domain.persistent.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

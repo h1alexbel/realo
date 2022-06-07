@@ -1,8 +1,8 @@
 package com.realo.estate.repository;
 
 import com.realo.estate.integration.TestcontainersTest;
-import com.realo.estate.model.estate.Estate;
-import com.realo.estate.model.estate.EstateType;
+import com.realo.estate.domain.persistent.estate.Estate;
+import com.realo.estate.domain.persistent.estate.EstateType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

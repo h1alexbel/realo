@@ -2,15 +2,15 @@ package com.realo.estate.repository.impl;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.realo.estate.model.announcement.Announcement;
-import com.realo.estate.model.querydsl.QPredicates;
+import com.realo.estate.domain.persistent.announcement.Announcement;
+import com.realo.estate.querydsl.QPredicates;
 import com.realo.estate.repository.FilterAnnouncementRepository;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.realo.estate.model.announcement.QAnnouncement.announcement;
+import static com.realo.estate.domain.persistent.announcement.QAnnouncement.announcement;
 
 public class FilterAnnouncementRepositoryImpl implements FilterAnnouncementRepository {
 

@@ -1,7 +1,7 @@
 package com.realo.estate.repository.filter;
 
-import com.realo.estate.model.announcement.AnnouncementType;
-import com.realo.estate.model.announcement.CurrencyType;
+import com.realo.estate.domain.persistent.announcement.AnnouncementType;
+import com.realo.estate.domain.persistent.announcement.CurrencyType;
 import lombok.Builder;
 import lombok.Value;
 
