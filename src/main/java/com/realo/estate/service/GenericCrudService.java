@@ -10,7 +10,7 @@ public interface GenericCrudService<E extends BaseEntity<K>, K extends Serializa
 
     E save(E entity);
 
-    void update(K key);
+    void update(E entity);
 
     boolean deleteById(K key);
 
