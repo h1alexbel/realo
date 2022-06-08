@@ -2,7 +2,6 @@
 
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/h1alexbel/realo)
 
-
 **Authors**: Aliaksei Bialiauski
 
 ## Contents
