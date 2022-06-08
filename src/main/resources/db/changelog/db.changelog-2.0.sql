@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS user_storage.user_account_aud
     last_name           VARCHAR(64),
     login               VARCHAR(64),
     password            VARCHAR(128),
-    role                INT,
+    role                VARCHAR(64),
     city                VARCHAR(48),
     country             VARCHAR(32),
     CONSTRAINT user_account_aud_pkey

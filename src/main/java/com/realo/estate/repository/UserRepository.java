@@ -21,4 +21,8 @@ public interface UserRepository extends
 
     @Query("select u from User u join u.announcementInterests i where i.title =:title")
     List<User> findAllByLikedAnnouncement(String title);
+
+    boolean existsByLogin(String login);
+
+    boolean existsByEmail(String email);
 }

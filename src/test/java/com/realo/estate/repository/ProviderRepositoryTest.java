@@ -1,7 +1,7 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.domain.persistent.estate.Provider;
+import com.realo.estate.integration.TestcontainersTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,6 +28,20 @@ class ProviderRepositoryTest extends TestcontainersTest {
         Optional<Provider> maybeProvider = providerRepository
                 .findByName(A100_DEVELOPMENT);
         assertThat(maybeProvider).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("is exists by name default test case")
+    void isExistsByNameTestCase() {
+        boolean existsByName = providerRepository.existsByName(A100_DEVELOPMENT);
+        assertThat(existsByName).isTrue();
+    }
+
+    @Test
+    @DisplayName("is exists by web site link default test case")
+    void isExistsByWebSiteLinkTestCase() {
+        boolean existsByWebSiteLink = providerRepository.existsByWebSiteLink(A100_WEBSITE_LINK);
+        assertThat(existsByWebSiteLink).isTrue();
     }
 
     @ParameterizedTest

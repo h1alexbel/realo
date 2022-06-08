@@ -28,6 +28,8 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     private static final String CENTRAL_MAIN_DISTRICT = "Central-Main";
     private static final String ALEXEY_77_LOGIN = "alexey77";
     private static final String CATT_123_LOGIN = "catt123";
+
+    private static final String TITLE = "Title";
     @Autowired
     private AnnouncementRepository announcementRepo;
 
@@ -68,6 +70,13 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     void findByTitleTestCase() {
         Optional<Announcement> maybeAnnouncement = announcementRepo.findByTitle("");
         assertThat(maybeAnnouncement).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("is exists by title default test case")
+    void existsByTitleTestCase() {
+        boolean existsByTitle = announcementRepo.existsByTitle(TITLE);
+        assertThat(existsByTitle).isFalse();
     }
 
     @ParameterizedTest
