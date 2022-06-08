@@ -15,4 +15,8 @@ public interface ProviderRepository extends JpaRepository<Provider, Long>,
     Optional<Provider> findByWebSiteLink(String providerWebSiteLink);
 
     List<Provider> findAllByNameContaining(String name);
+
+    boolean existsByName(String providerName);
+
+    boolean existsByWebSiteLink(String webSiteLink);
 }

@@ -17,8 +17,8 @@ public interface AnnouncementRepository extends
         RevisionRepository<Announcement, Long, Long> {
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Announcement a set a.announcementType =:announcementType" +
-                   " where a.id =:id")
+    @Query("update Announcement a set a.announcementType =:announcementType" +
+           " where a.id =:id")
     void updateAnnouncementTypeById(AnnouncementType announcementType, Long id);
 
     Optional<Announcement> findByTitle(String title);
@@ -31,4 +31,6 @@ public interface AnnouncementRepository extends
     List<Announcement> findAllLikedByUserLogin(String login);
 
     List<Announcement> findAllByCreatedAtBetween(LocalDate from, LocalDate to);
+
+    boolean existsByTitle(String title);
 }

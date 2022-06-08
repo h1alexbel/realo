@@ -26,6 +26,8 @@ class UserRepositoryTest extends TestcontainersTest {
     private static final String O = "o";
     private static final String DOE_EMAIL = "doe@gmail.com";
     private static final String DOE_LOGIN = "doe12345";
+    private static final String CAT_LOGIN = "cat@cact";
+    private static final String CAT_GMAIL = "cat@gmail.com";
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -50,6 +52,34 @@ class UserRepositoryTest extends TestcontainersTest {
     void findByEmailTestCase() {
         Optional<User> maybeUser = userRepository.findByEmail(DOE_EMAIL);
         assertThat(maybeUser).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("is exists by email default test case")
+    void existsByEmailTestCase() {
+        boolean existsByEmail = userRepository.existsByEmail(DOE_EMAIL);
+        assertThat(existsByEmail).isTrue();
+    }
+
+    @Test
+    @DisplayName("is exists by email that not represented in db test case")
+    void existsByEmailFalseCase() {
+        boolean existsByEmail = userRepository.existsByEmail(CAT_GMAIL);
+        assertThat(existsByEmail).isFalse();
+    }
+
+    @Test
+    @DisplayName("is exists by login default test case")
+    void existsByLoginTestCase() {
+        boolean existsByLogin = userRepository.existsByLogin(DOE_LOGIN);
+        assertThat(existsByLogin).isTrue();
+    }
+
+    @Test
+    @DisplayName("is exists by login that not represented in db test case")
+    void existsByLoginFalseCase() {
+        boolean existsByLogin = userRepository.existsByLogin(CAT_LOGIN);
+        assertThat(existsByLogin).isFalse();
     }
 
     @ParameterizedTest
