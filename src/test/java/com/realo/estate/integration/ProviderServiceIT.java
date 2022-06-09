@@ -1,6 +1,6 @@
 package com.realo.estate.integration;
 
-import com.realo.estate.domain.persistent.estate.Provider;
+import com.realo.estate.domain.persistence.estate.Provider;
 import com.realo.estate.service.ProviderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

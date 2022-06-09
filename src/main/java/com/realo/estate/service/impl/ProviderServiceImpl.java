@@ -1,7 +1,7 @@
 package com.realo.estate.service.impl;
 
 import com.realo.estate.annotation.TransactionalRealoService;
-import com.realo.estate.domain.persistent.estate.Provider;
+import com.realo.estate.domain.persistence.estate.Provider;
 import com.realo.estate.repository.ProviderRepository;
 import com.realo.estate.service.ProviderService;
 import lombok.RequiredArgsConstructor;

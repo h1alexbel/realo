@@ -1,8 +1,8 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.domain.persistent.announcement.Announcement;
-import com.realo.estate.domain.persistent.announcement.AnnouncementType;
-import com.realo.estate.domain.persistent.announcement.CurrencyType;
+import com.realo.estate.domain.persistence.announcement.Announcement;
+import com.realo.estate.domain.persistence.announcement.AnnouncementType;
+import com.realo.estate.domain.persistence.announcement.CurrencyType;
 import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import org.junit.jupiter.api.DisplayName;

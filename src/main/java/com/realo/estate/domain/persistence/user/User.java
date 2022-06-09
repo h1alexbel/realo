@@ -1,7 +1,7 @@
-package com.realo.estate.domain.persistent.user;
+package com.realo.estate.domain.persistence.user;
 
-import com.realo.estate.domain.persistent.BaseEntity;
-import com.realo.estate.domain.persistent.announcement.Announcement;
+import com.realo.estate.domain.persistence.BaseEntity;
+import com.realo.estate.domain.persistence.announcement.Announcement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

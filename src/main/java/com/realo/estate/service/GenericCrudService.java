@@ -1,6 +1,6 @@
 package com.realo.estate.service;
 
-import com.realo.estate.domain.persistent.BaseEntity;
+import com.realo.estate.domain.persistence.BaseEntity;
 
 import java.io.Serializable;
 import java.util.List;

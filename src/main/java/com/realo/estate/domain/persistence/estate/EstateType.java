@@ -1,4 +1,4 @@
-package com.realo.estate.domain.persistent.estate;
+package com.realo.estate.domain.persistence.estate;
 
 public enum EstateType {
 

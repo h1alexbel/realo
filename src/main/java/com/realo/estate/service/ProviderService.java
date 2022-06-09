@@ -1,6 +1,6 @@
 package com.realo.estate.service;
 
-import com.realo.estate.domain.persistent.estate.Provider;
+import com.realo.estate.domain.persistence.estate.Provider;
 
 import java.util.List;
 import java.util.Optional;
