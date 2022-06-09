@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.history.RevisionRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public interface EstateRepository extends
 
     @Modifying(clearAutomatically = true)
     @Query("update Estate e set e.estateType = :estateType where e.id =:id")
-    void updateEstateTypeById(@Param("estateType") EstateType estateTypeToSet, Long id);
+    void updateEstateTypeById(EstateType estateType, Long id);
 
     List<Estate> findAllByEstateType(EstateType estateType);
 
