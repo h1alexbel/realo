@@ -1,7 +1,7 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.domain.persistent.announcement.Announcement;
-import com.realo.estate.domain.persistent.announcement.AnnouncementType;
+import com.realo.estate.domain.persistence.announcement.Announcement;
+import com.realo.estate.domain.persistence.announcement.AnnouncementType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.realo.estate.domain.persistent.announcement;
+package com.realo.estate.domain.persistence.announcement;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

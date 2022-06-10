@@ -1,6 +1,6 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.domain.persistent.estate.Provider;
+import com.realo.estate.domain.persistence.estate.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.history.RevisionRepository;
 

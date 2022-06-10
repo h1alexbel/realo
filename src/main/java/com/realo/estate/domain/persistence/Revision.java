@@ -1,4 +1,4 @@
-package com.realo.estate.domain.persistent;
+package com.realo.estate.domain.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

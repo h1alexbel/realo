@@ -1,6 +1,6 @@
-package com.realo.estate.domain.persistent.estate;
+package com.realo.estate.domain.persistence.estate;
 
-import com.realo.estate.domain.persistent.BaseEntity;
+import com.realo.estate.domain.persistence.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,20 +1,18 @@
 package com.realo.estate.service;
 
-import com.realo.estate.domain.persistent.BaseEntity;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface GenericCrudService<E extends BaseEntity<K>, K extends Serializable> {
+public interface GenericCrudService<D extends Serializable, K extends Serializable> {
 
-    E save(E entity);
+    D save(D dto);
 
-    void update(K key);
+    Optional<D> update(D dto);
 
     boolean deleteById(K key);
 
-    Optional<E> findById(K id);
+    Optional<D> findById(K id);
 
-    List<E> findAll();
+    List<D> findAll();
 }

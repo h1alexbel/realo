@@ -1,6 +1,6 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.domain.persistent.user.User;
+import com.realo.estate.domain.persistence.user.User;
 import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.UserFilter;
 import org.junit.jupiter.api.DisplayName;
