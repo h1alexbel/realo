@@ -6,13 +6,12 @@ import com.realo.estate.repository.filter.AnnouncementFilter;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface AnnouncementService extends GenericCrudService<AnnouncementDto, Long> {
 
     void updateAnnouncementTypeById(AnnouncementType announcementType, Long id);
 
-    Optional<AnnouncementDto> findByTitle(String title);
+    AnnouncementDto findByTitle(String title);
 
     List<AnnouncementDto> findAll(AnnouncementFilter filter);
 
