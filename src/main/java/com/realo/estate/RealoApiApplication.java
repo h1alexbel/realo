@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RealEstateAppApplication {
+public class RealoApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RealEstateAppApplication.class, args);
+        SpringApplication.run(RealoApiApplication.class, args);
     }
 }
