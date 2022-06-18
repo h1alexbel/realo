@@ -7,7 +7,7 @@ public interface GenericCrudService<D extends Serializable, K extends Serializab
 
     D save(D dto);
 
-    D update(D dto);
+    D update(K id, D dto);
 
     boolean deleteById(K id);
 
