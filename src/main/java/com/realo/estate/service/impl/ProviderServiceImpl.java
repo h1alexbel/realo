@@ -43,6 +43,10 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public ProviderDto update(Long id, ProviderDto providerDto) {
         Objects.requireNonNull(providerDto);
+        if (providerRepository.existsByName(providerDto.getName())
+            && providerRepository.existsByWebSiteLink(providerDto.getWebSiteLink())) {
+            throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
+        }
         return providerRepository.findById(id)
                 .map(entity -> {
                     Provider provider = providerMapper.toEntity(providerDto);
