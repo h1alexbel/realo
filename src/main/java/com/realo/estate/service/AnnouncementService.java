@@ -22,6 +22,4 @@ public interface AnnouncementService extends GenericCrudService<AnnouncementDto,
     List<AnnouncementDto> findAllLikedByUserLogin(String login);
 
     List<AnnouncementDto> findAllByCreatedAtBetween(LocalDate from, LocalDate to);
-
-    boolean isExistsByTitle(String title);
 }
