@@ -16,8 +16,4 @@ public interface UserService extends GenericCrudService<UserDto, Long> {
     UserDto findByEmail(String email);
 
     List<UserDto> findAllByLikedAnnouncement(String title);
-
-    boolean isExistsByLogin(String login);
-
-    boolean isExistsByEmail(String email);
 }
