@@ -23,7 +23,7 @@ public class ProviderServiceImpl implements ProviderService {
     private final ProviderRepository providerRepository;
     private final ProviderMapper providerMapper;
     private static final String PROVIDER_CREDENTIALS_ALREADY_EXISTS = "Provider with this name or website link already exists!";
-    private static final String RESOURCE_NOT_FOUND_MESSAGE = "Resource Not Found! Please try again.";
+    private static final String PROVIDER_NOT_FOUND_MESSAGE = "Provider Not Found! Please try again.";
 
     @Transactional
     @Override
@@ -55,7 +55,7 @@ public class ProviderServiceImpl implements ProviderService {
                 })
                 .map(providerRepository::saveAndFlush)
                 .map(providerMapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND_MESSAGE));
+                .orElseThrow(() -> new ResourceNotFoundException(PROVIDER_NOT_FOUND_MESSAGE));
     }
 
     @Transactional
@@ -74,7 +74,7 @@ public class ProviderServiceImpl implements ProviderService {
     public ProviderDto findById(Long id) {
         return providerRepository.findById(id)
                 .map(providerMapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND_MESSAGE));
+                .orElseThrow(() -> new ResourceNotFoundException(PROVIDER_NOT_FOUND_MESSAGE));
     }
 
     @Transactional(readOnly = true)
@@ -90,6 +90,6 @@ public class ProviderServiceImpl implements ProviderService {
     public ProviderDto findByName(String name) {
         return providerRepository.findByName(name)
                 .map(providerMapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND_MESSAGE));
+                .orElseThrow(() -> new ResourceNotFoundException(PROVIDER_NOT_FOUND_MESSAGE));
     }
 }

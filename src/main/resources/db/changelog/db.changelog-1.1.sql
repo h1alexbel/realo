@@ -63,6 +63,6 @@ CREATE TABLE IF NOT EXISTS announcement_storage.announcement
 -- changeset abialiauski:5
 CREATE TABLE IF NOT EXISTS user_storage.user_interests
 (
-    announcement_id int8 NOT NULL REFERENCES user_storage.user_account (id),
-    user_id         int8 NOT NULL REFERENCES announcement_storage.announcement (id)
+    announcement_id int8 NOT NULL REFERENCES announcement_storage.announcement (id),
+    user_id         int8 NOT NULL REFERENCES user_storage.user_account (id)
 );
