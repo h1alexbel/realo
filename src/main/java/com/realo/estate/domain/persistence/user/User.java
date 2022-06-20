@@ -50,7 +50,7 @@ public class User extends BaseEntity<Long> {
     @Column(length = 64, unique = true, nullable = false)
     private String login;
 
-    @Column(length = 128, nullable = false)
+    @Column(length = 128, nullable = false, updatable = false)
     private String password;
 
     @Column(length = 128, unique = true, nullable = false)
@@ -81,11 +81,6 @@ public class User extends BaseEntity<Long> {
     @Builder.Default
     @ToString.Exclude
     private List<Announcement> announcementInterests = new ArrayList<>();
-
-    public void addAnnouncementToInterests(Announcement announcement) {
-        announcementInterests.add(announcement);
-        announcement.getInterestedUsers().add(this);
-    }
 
     @Override
     public boolean equals(Object o) {
