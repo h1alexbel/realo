@@ -86,23 +86,6 @@ public class EstateServiceImpl implements EstateService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<EstateDto> findAllByYearOfConstruction(Integer year) {
-        return estateRepository
-                .findAllByYearOfConstruction(year).stream()
-                .map(estateMapper::toDto)
-                .collect(toList());
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<EstateDto> findAllBySquare(Double square) {
-        return estateRepository.findAllBySquare(square).stream()
-                .map(estateMapper::toDto)
-                .collect(toList());
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public EstateDto findById(Long id) {
         return estateRepository.findById(id)
                 .map(estateMapper::toDto)
