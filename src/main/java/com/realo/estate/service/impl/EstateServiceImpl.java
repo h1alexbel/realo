@@ -106,7 +106,7 @@ public class EstateServiceImpl implements EstateService {
     public EstateDto findById(Long id) {
         return estateRepository.findById(id)
                 .map(estateMapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException(""));
+                .orElseThrow(() -> new ResourceNotFoundException(ESTATE_NOT_FOUND_MESSAGE));
     }
 
     @Transactional(readOnly = true)
