@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
@@ -31,8 +30,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto save(UserDto userDto) {
-        Objects.requireNonNull(userDto.getLogin());
-        Objects.requireNonNull(userDto.getEmail());
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
             return Optional.of(userDto)
@@ -50,8 +47,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto update(Long id, UserDto userDto) {
-        Objects.requireNonNull(id);
-        Objects.requireNonNull(userDto);
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
             return userRepository.findById(id)
