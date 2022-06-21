@@ -19,8 +19,4 @@ public interface EstateRepository extends
     void updateEstateTypeById(EstateType estateType, Long id);
 
     List<Estate> findAllByEstateType(EstateType estateType);
-
-    List<Estate> findAllByYearOfConstruction(Integer year);
-
-    List<Estate> findAllBySquare(Double square);
 }
