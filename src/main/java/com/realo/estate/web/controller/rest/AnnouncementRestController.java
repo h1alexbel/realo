@@ -31,8 +31,8 @@ public class AnnouncementRestController {
 
     private final AnnouncementService announcementService;
 
-    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     public AnnouncementDto createAnnouncement(@RequestBody AnnouncementDto announcementDto) {
         return announcementService.save(announcementDto);
     }
@@ -56,8 +56,8 @@ public class AnnouncementRestController {
                 : notFound().build();
     }
 
-    @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping
     public List<AnnouncementDto> getAll() {
         return announcementService.findAll();
     }
