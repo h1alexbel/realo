@@ -7,6 +7,7 @@ import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.ProviderRepository;
 import com.realo.estate.service.ProviderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
@@ -24,17 +26,22 @@ public class ProviderServiceImpl implements ProviderService {
     private final ProviderMapper providerMapper;
     private static final String PROVIDER_CREDENTIALS_ALREADY_EXISTS = "Provider with this name or website link already exists!";
     private static final String PROVIDER_NOT_FOUND_MESSAGE = "Provider Not Found! Please try again.";
+    public static final String PROVIDER_SAVED_IN_SERVICE = "Provider was saved in service :{}";
+    private static final String PROVIDER_UPDATED_IN_SERVICE = "Provider was updated in service :{}";
+    private static final String PROVIDER_DELETED_IN_SERVICE = "Provider was deleted in service :{}";
 
     @Transactional
     @Override
     public ProviderDto save(ProviderDto providerDto) {
         if (!providerRepository.existsByName(providerDto.getName())
             && !providerRepository.existsByWebSiteLink(providerDto.getWebSiteLink())) {
-            return Optional.of(providerDto)
+            ProviderDto saved = Optional.of(providerDto)
                     .map(providerMapper::toEntity)
                     .map(providerRepository::save)
                     .map(providerMapper::toDto)
                     .orElseThrow();
+            log.debug(PROVIDER_SAVED_IN_SERVICE, saved);
+            return saved;
         }
         throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
     }
@@ -47,7 +54,7 @@ public class ProviderServiceImpl implements ProviderService {
             && providerRepository.existsByWebSiteLink(providerDto.getWebSiteLink())) {
             throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
         }
-        return providerRepository.findById(id)
+        ProviderDto updated = providerRepository.findById(id)
                 .map(entity -> {
                     Provider provider = providerMapper.toEntity(providerDto);
                     provider.setId(providerDto.getId());
@@ -56,6 +63,8 @@ public class ProviderServiceImpl implements ProviderService {
                 .map(providerRepository::saveAndFlush)
                 .map(providerMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException(PROVIDER_NOT_FOUND_MESSAGE));
+        log.debug(PROVIDER_UPDATED_IN_SERVICE, updated);
+        return updated;
     }
 
     @Transactional
@@ -65,6 +74,7 @@ public class ProviderServiceImpl implements ProviderService {
                 .map(provider -> {
                     providerRepository.delete(provider);
                     providerRepository.flush();
+                    log.debug(PROVIDER_DELETED_IN_SERVICE, provider);
                     return true;
                 }).orElse(false);
     }
