@@ -6,7 +6,6 @@ import com.realo.estate.repository.filter.UserFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,21 +29,12 @@ class UserRepositoryTest extends TestcontainersTest {
     private static final String CAT_GMAIL = "cat@gmail.com";
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private AnnouncementRepository announcementRepository;
 
     @Test
     @DisplayName("Find by User login default test case")
     void findByLoginTestCase() {
         Optional<User> maybeUser = userRepository.findByLogin(DOE_LOGIN);
         assertThat(maybeUser).isNotEmpty();
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find by User login null and empty test case")
-    void findByLoginNullAndEmptyCase(String login) {
-        assertDoesNotThrow(() -> userRepository.findByLogin(login));
     }
 
     @Test
@@ -82,25 +72,11 @@ class UserRepositoryTest extends TestcontainersTest {
         assertThat(existsByLogin).isFalse();
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find by User email null and empty test case")
-    void findByEmailNullAndEmptyCase(String email) {
-        assertDoesNotThrow(() -> userRepository.findByEmail(email));
-    }
-
     @Test
     @DisplayName("Find all by User login containing test case")
     void findAllByLoginContainingTestCase() {
         List<User> users = userRepository.findAllByLoginContaining(O);
         assertThat(users).hasSize(5);
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by User login containing null and empty test case")
-    void findAllByLoginContainingNullAndEmptyCase(String login) {
-        assertDoesNotThrow(() -> userRepository.findAllByLoginContaining(login));
     }
 
     @Test
@@ -112,14 +88,6 @@ class UserRepositoryTest extends TestcontainersTest {
                 .build();
         List<User> users = userRepository.findByFilter(filter);
         assertThat(users).hasSize(1);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by UserFilter null test case")
-    void findAllByFilterNullCase(UserFilter userFilter) {
-        assertDoesNotThrow(() -> userRepository
-                .findByFilter(userFilter));
     }
 
     @Test
@@ -159,9 +127,9 @@ class UserRepositoryTest extends TestcontainersTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by liked Announcement title null and empty case")
-    void findAllByLikedAnnouncementTitleNullAndEmptyCase(String title) {
-        assertDoesNotThrow(() -> userRepository.findAllByLikedAnnouncement(title));
+    @NullSource
+    @DisplayName("Find by match null case")
+    void findByMatchNullCase(UserFilter filter) {
+        assertDoesNotThrow(() -> userRepository.findByFilter(filter));
     }
 }
