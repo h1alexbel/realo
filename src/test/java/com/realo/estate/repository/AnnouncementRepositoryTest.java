@@ -8,7 +8,6 @@ import com.realo.estate.repository.filter.AnnouncementFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +27,6 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     private static final String CENTRAL_MAIN_DISTRICT = "Central-Main";
     private static final String ALEXEY_77_LOGIN = "alexey77";
     private static final String CATT_123_LOGIN = "catt123";
-
     private static final String TITLE = "Title";
     @Autowired
     private AnnouncementRepository announcementRepo;
@@ -79,13 +77,6 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
         assertThat(existsByTitle).isFalse();
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find by title null and empty case")
-    void findByTitleNullAndEmptyCase(String title) {
-        assertDoesNotThrow(() -> announcementRepo.findByTitle(title));
-    }
-
     @Test
     @DisplayName("Find all by title containing test case")
     void findAllByTitleContainingTestCase() {
@@ -94,26 +85,12 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
         assertThat(announcements).hasSize(3);
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all by title containing null and empty case")
-    void findAllByTitleContainingNullAndEmptyCase(String title) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByTitleContaining(title));
-    }
-
     @Test
     @DisplayName("Find all by AnnouncementType default test case")
     void findAllByAnnouncementTypeTestCase() {
         List<Announcement> announcements = announcementRepo
                 .findAllByAnnouncementType(AnnouncementType.SHORT_TERM_RENT);
         assertThat(announcements).hasSize(1);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by AnnouncementType Null case")
-    void findAllByAnnouncementTypeNullCase(AnnouncementType announcementType) {
-        assertDoesNotThrow(() -> announcementRepo.findAllByAnnouncementType(announcementType));
     }
 
     @Test
@@ -178,14 +155,6 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
         assertThat(announcements).hasSize(3);
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @DisplayName("Find all liked Announcements by User login null and empty test case")
-    void findAllLikedByUserLoginNullAndEmptyCase(String login) {
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllLikedByUserLogin(login));
-    }
-
     @Test
     @DisplayName("Find all by created date between default test case")
     void findAllByCreatedDateBetweenTestCase() {
@@ -194,24 +163,6 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
         List<Announcement> announcements = announcementRepo
                 .findAllByCreatedAtBetween(from, to);
         assertThat(announcements).hasSize(5);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by created date between from null test case")
-    void findAllByDateCreatedBetweenFromNullCase(LocalDate from) {
-        LocalDate to = LocalDate.of(2022, Month.APRIL, 1);
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByCreatedAtBetween(from, to));
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by created date between to null test case")
-    void findAllByDateCreatedBetweenToNullCase(LocalDate to) {
-        LocalDate from = LocalDate.of(2021, Month.DECEMBER, 1);
-        assertDoesNotThrow(() -> announcementRepo
-                .findAllByCreatedAtBetween(from, to));
     }
 
     @Test

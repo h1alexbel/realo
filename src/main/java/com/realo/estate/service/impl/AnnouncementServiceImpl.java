@@ -9,6 +9,7 @@ import com.realo.estate.repository.AnnouncementRepository;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import com.realo.estate.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -26,6 +28,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     private final AnnouncementRepository announcementRepository;
     private final AnnouncementMapper announcementMapper;
     private static final String ANNOUNCEMENT_NOT_FOUND_MESSAGE = "Announcement Not Found! Please try again.";
+    private static final String ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE = "Announcement with id :{}, has updated type :{} ";
+    private static final String ANNOUNCEMENT_WAS_DELETED_IN_SERVICE = "Announcement was deleted in service :{}";
+    private static final String ANNOUNCEMENT_WAS_UPDATED_IN_SERVICE = "Announcement was updated in service :{}";
+    private static final String ANNOUNCEMENT_WAS_SAVED_IN_SERVICE = "Announcement was saved in service :{}";
     private static final String ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS = "Announcement with this title already exists!";
 
     @Transactional
@@ -33,11 +39,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public AnnouncementDto save(AnnouncementDto announcementDto) {
         Objects.requireNonNull(announcementDto.getTitle());
         if (!announcementRepository.existsByTitle(announcementDto.getTitle())) {
-            return Optional.of(announcementDto)
+            AnnouncementDto saved = Optional.of(announcementDto)
                     .map(announcementMapper::toEntity)
                     .map(announcementRepository::save)
                     .map(announcementMapper::toDto)
                     .orElseThrow();
+            log.debug(ANNOUNCEMENT_WAS_SAVED_IN_SERVICE, saved);
+            return saved;
         }
         throw new IllegalStateException(ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS);
     }
@@ -45,7 +53,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Transactional
     @Override
     public AnnouncementDto update(Long id, AnnouncementDto announcementDto) {
-        return announcementRepository.findById(id)
+        AnnouncementDto updated = announcementRepository.findById(id)
                 .map(entity -> {
                     Announcement announcement = announcementMapper.toEntity(announcementDto);
                     announcement.setId(announcement.getId());
@@ -54,6 +62,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .map(announcementRepository::saveAndFlush)
                 .map(announcementMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException(ANNOUNCEMENT_NOT_FOUND_MESSAGE));
+        log.debug(ANNOUNCEMENT_WAS_UPDATED_IN_SERVICE, updated);
+        return updated;
     }
 
     @Transactional
@@ -63,6 +73,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .map(announcement -> {
                     announcementRepository.delete(announcement);
                     announcementRepository.flush();
+                    log.debug(ANNOUNCEMENT_WAS_DELETED_IN_SERVICE, announcement);
                     return true;
                 }).orElse(false);
     }
@@ -74,6 +85,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         maybeAnnouncement.ifPresent(announcement ->
                 announcementRepository
                         .updateAnnouncementTypeById(announcementType, announcement.getId()));
+        log.debug(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, announcementType);
     }
 
     @Transactional(readOnly = true)

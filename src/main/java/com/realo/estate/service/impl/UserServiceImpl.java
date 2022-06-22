@@ -8,6 +8,7 @@ import com.realo.estate.repository.UserRepository;
 import com.realo.estate.repository.filter.UserFilter;
 import com.realo.estate.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -26,13 +28,17 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private static final String USER_NOT_FOUND_MESSAGE = "User Not Found! Please try again.";
     private static final String USER_CREDENTIALS_ALREADY_EXISTS = "User with this name or email already exists!";
+    private static final String USER_SAVED_IN_SERVICE = "User was saved in service :{}";
+    private static final String USER_UPDATED_IN_SERVICE = "User was updated in service :{}";
+    private static final String ADDED_TO_USER_INTEREST_WITH_ID = "Announcement with id :{} was added to user interest with id :{}";
+    private static final String USER_WAS_DELETED_IN_SERVICE = "User was deleted in service :{}";
 
     @Transactional
     @Override
     public UserDto save(UserDto userDto) {
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
-            return Optional.of(userDto)
+            UserDto saved = Optional.of(userDto)
                     .map(userMapper::toEntity)
                     .map(user -> {
                         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -40,6 +46,8 @@ public class UserServiceImpl implements UserService {
                     })
                     .map(userMapper::toDto)
                     .orElseThrow();
+            log.debug(USER_SAVED_IN_SERVICE, saved);
+            return saved;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
     }
@@ -49,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public UserDto update(Long id, UserDto userDto) {
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
-            return userRepository.findById(id)
+            UserDto updated = userRepository.findById(id)
                     .map(entity -> {
                         User user = userMapper.toEntity(userDto);
                         user.setId(userDto.getId());
@@ -58,14 +66,17 @@ public class UserServiceImpl implements UserService {
                     .map(userRepository::saveAndFlush)
                     .map(userMapper::toDto)
                     .orElseThrow(() -> new ResourceNotFoundException(USER_NOT_FOUND_MESSAGE));
+            log.debug(USER_UPDATED_IN_SERVICE, updated);
+            return updated;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional
     @Override
-    public void addAnnouncementToInterests(Long user, Long announcementId) {
-        userRepository.addToInterests(announcementId, user);
+    public void addAnnouncementToInterests(Long userId, Long announcementId) {
+        userRepository.addToInterests(announcementId, userId);
+        log.debug(ADDED_TO_USER_INTEREST_WITH_ID, announcementId, userId);
     }
 
     @Transactional
@@ -75,6 +86,7 @@ public class UserServiceImpl implements UserService {
                 .map(user -> {
                     userRepository.delete(user);
                     userRepository.flush();
+                    log.debug(USER_WAS_DELETED_IN_SERVICE, user);
                     return true;
                 }).orElse(false);
     }

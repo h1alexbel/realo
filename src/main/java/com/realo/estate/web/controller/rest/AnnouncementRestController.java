@@ -5,6 +5,7 @@ import com.realo.estate.domain.persistence.announcement.AnnouncementType;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import com.realo.estate.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,29 +25,38 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.notFound;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/announcements")
 @RequiredArgsConstructor
 public class AnnouncementRestController {
 
     private final AnnouncementService announcementService;
+    private static final String ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER = "Announcement was saved in controller :{}";
+    private static final String ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER = "Announcement was updated in controller :{}";
+    private static final String ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE = "Announcement with id :{}, has updated type :{}";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public AnnouncementDto createAnnouncement(@RequestBody AnnouncementDto announcementDto) {
-        return announcementService.save(announcementDto);
+        AnnouncementDto saved = announcementService.save(announcementDto);
+        log.debug(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
+        return saved;
     }
 
     @PutMapping("/{id}")
     public AnnouncementDto update(
             @PathVariable Long id,
             @RequestBody AnnouncementDto announcementToUpdate) {
-        return announcementService.update(id, announcementToUpdate);
+        AnnouncementDto updated = announcementService.update(id, announcementToUpdate);
+        log.debug(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
+        return updated;
     }
 
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable AnnouncementType type) {
         announcementService.updateAnnouncementTypeById(type, id);
+        log.debug(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
     @DeleteMapping("/{id}")

@@ -5,6 +5,7 @@ import com.realo.estate.domain.persistence.estate.EstateType;
 import com.realo.estate.repository.filter.EstateFilter;
 import com.realo.estate.service.EstateService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,27 +25,36 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.notFound;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/estates")
 @RequiredArgsConstructor
 public class EstateRestController {
 
     private final EstateService estateService;
+    private static final String ESTATE_WAS_SAVED_IN_CONTROLLER = "Estate was saved in controller :{}";
+    private static final String ESTATE_WAS_UPDATED_IN_CONTROLLER = "Estate was updated in controller :{}";
+    private static final String ESTATE_WITH_ID_HAS_UPDATED_TYPE = "Estate with id :{}, has updated type :{}";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public EstateDto create(@RequestBody EstateDto estateDto) {
-        return estateService.save(estateDto);
+        EstateDto saved = estateService.save(estateDto);
+        log.debug(ESTATE_WAS_SAVED_IN_CONTROLLER, saved);
+        return saved;
     }
 
     @PutMapping("/{id}")
     public EstateDto update(@PathVariable Long id, @RequestBody EstateDto estateDto) {
-        return estateService.update(id, estateDto);
+        EstateDto updated = estateService.update(id, estateDto);
+        log.debug(ESTATE_WAS_UPDATED_IN_CONTROLLER, updated);
+        return updated;
     }
 
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable EstateType type) {
         estateService.updateEstateTypeById(type, id);
+        log.debug(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
     @DeleteMapping("/{id}")

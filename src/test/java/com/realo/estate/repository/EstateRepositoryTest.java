@@ -20,7 +20,6 @@ class EstateRepositoryTest extends TestcontainersTest {
 
     private static final String MOSCOW = "Moscow";
     private static final String UKRAINE = "Ukraine";
-    private static final String A100_DEVELOPMENT = "A100 Development";
     @Autowired
     private EstateRepository estateRepository;
 
@@ -75,13 +74,6 @@ class EstateRepositoryTest extends TestcontainersTest {
         assertThat(houses).hasSize(2);
     }
 
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by EstateType null case")
-    void findAllByEstateTypeNullCase(EstateType estateType) {
-        assertDoesNotThrow(() -> estateRepository.findAllByEstateType(estateType));
-    }
-
     @Test
     @DisplayName("Find all by Estate City default test case")
     void findAllByCityTestCase() {
@@ -100,34 +92,6 @@ class EstateRepositoryTest extends TestcontainersTest {
                 .build();
         List<Estate> estates = estateRepository.findByFilter(estateFilter);
         assertThat(estates).hasSize(2);
-    }
-
-    @Test
-    @DisplayName("Find all by Estate Year of construction default test case")
-    void findAllByYearOfConstructionTestCase() {
-        List<Estate> estates = estateRepository.findAllByYearOfConstruction(2001);
-        assertThat(estates).hasSize(1);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Year of construction null case")
-    void findAllByYearOfConstructionNullCase(Integer year) {
-        assertDoesNotThrow(() -> estateRepository.findAllByYearOfConstruction(year));
-    }
-
-    @Test
-    @DisplayName("Find all by Estate Square default test case")
-    void findAllBySquareTestCase() {
-        List<Estate> estates = estateRepository.findAllBySquare(45.2);
-        assertThat(estates).hasSize(1);
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Find all by Estate Square Null case")
-    void findAllBySquareNullCase(Double square) {
-        assertDoesNotThrow(() -> estateRepository.findAllBySquare(square));
     }
 
     @Test
@@ -152,5 +116,12 @@ class EstateRepositoryTest extends TestcontainersTest {
         List<Estate> estates = estateRepository
                 .findByFilter(estateFilter);
         assertThat(estates).hasSize(5);
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @DisplayName("Find by match null case")
+    void findByMatchNullCase(EstateFilter filter) {
+        assertDoesNotThrow(() -> estateRepository.findByFilter(filter));
     }
 }
