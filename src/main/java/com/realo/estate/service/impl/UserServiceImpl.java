@@ -2,6 +2,7 @@ package com.realo.estate.service.impl;
 
 import com.realo.estate.domain.dto.UserDto;
 import com.realo.estate.domain.mapper.UserMapper;
+import com.realo.estate.domain.persistence.user.Role;
 import com.realo.estate.domain.persistence.user.User;
 import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.UserRepository;
@@ -32,21 +33,40 @@ public class UserServiceImpl implements UserService {
     private static final String USER_UPDATED_IN_SERVICE = "User was updated in service :{}";
     private static final String ADDED_TO_USER_INTEREST_WITH_ID = "Announcement with id :{} was added to user interest with id :{}";
     private static final String USER_WAS_DELETED_IN_SERVICE = "User was deleted in service :{}";
+    private static final String ADMIN_SAVED_IN_SERVICE = "Admin was saved in service :{}";
+    private static final String AGENT_SAVED_IN_SERVICE = "Agent was saved in service :{}";
 
     @Transactional
     @Override
     public UserDto save(UserDto userDto) {
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
-            UserDto saved = Optional.of(userDto)
-                    .map(userMapper::toEntity)
-                    .map(user -> {
-                        user.setPassword(passwordEncoder.encode(user.getPassword()));
-                        return userRepository.save(user);
-                    })
-                    .map(userMapper::toDto)
-                    .orElseThrow();
+            UserDto saved = saveUser(userDto, Role.USER);
             log.debug(USER_SAVED_IN_SERVICE, saved);
+            return saved;
+        }
+        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
+    }
+
+    @Transactional
+    @Override
+    public UserDto createAdminAccount(UserDto admin) {
+        if (!userRepository.existsByLogin(admin.getLogin())
+            && !userRepository.existsByEmail(admin.getEmail())) {
+            UserDto saved = saveUser(admin, Role.ADMIN);
+            log.debug(ADMIN_SAVED_IN_SERVICE, saved);
+            return saved;
+        }
+        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
+    }
+
+    @Transactional
+    @Override
+    public UserDto createAgentAccount(UserDto agent) {
+        if (!userRepository.existsByLogin(agent.getLogin())
+            && !userRepository.existsByEmail(agent.getEmail())) {
+            UserDto saved = saveUser(agent, Role.AGENT);
+            log.debug(AGENT_SAVED_IN_SERVICE, saved);
             return saved;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
@@ -144,5 +164,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByLikedAnnouncement(title).stream()
                 .map(userMapper::toDto)
                 .collect(toList());
+    }
+
+    private UserDto saveUser(UserDto userDto, Role role) {
+        return Optional.of(userDto)
+                .map(userMapper::toEntity)
+                .map(user -> {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    user.setRole(role);
+                    return userRepository.save(user);
+                })
+                .map(userMapper::toDto)
+                .orElseThrow();
     }
 }
