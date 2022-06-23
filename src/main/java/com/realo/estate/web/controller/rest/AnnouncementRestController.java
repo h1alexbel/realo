@@ -40,7 +40,7 @@ public class AnnouncementRestController {
     @PostMapping
     public AnnouncementDto createAnnouncement(@RequestBody AnnouncementDto announcementDto) {
         AnnouncementDto saved = announcementService.save(announcementDto);
-        log.debug(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
+        log.info(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
         return saved;
     }
 
@@ -49,14 +49,14 @@ public class AnnouncementRestController {
             @PathVariable Long id,
             @RequestBody AnnouncementDto announcementToUpdate) {
         AnnouncementDto updated = announcementService.update(id, announcementToUpdate);
-        log.debug(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
+        log.info(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
     }
 
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable AnnouncementType type) {
         announcementService.updateAnnouncementTypeById(type, id);
-        log.debug(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
+        log.info(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
     @DeleteMapping("/{id}")

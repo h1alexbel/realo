@@ -40,7 +40,7 @@ public class ProviderServiceImpl implements ProviderService {
                     .map(providerRepository::save)
                     .map(providerMapper::toDto)
                     .orElseThrow();
-            log.debug(PROVIDER_SAVED_IN_SERVICE, saved);
+            log.info(PROVIDER_SAVED_IN_SERVICE, saved);
             return saved;
         }
         throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
@@ -63,7 +63,7 @@ public class ProviderServiceImpl implements ProviderService {
                 .map(providerRepository::saveAndFlush)
                 .map(providerMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException(PROVIDER_NOT_FOUND_MESSAGE));
-        log.debug(PROVIDER_UPDATED_IN_SERVICE, updated);
+        log.info(PROVIDER_UPDATED_IN_SERVICE, updated);
         return updated;
     }
 
@@ -74,7 +74,7 @@ public class ProviderServiceImpl implements ProviderService {
                 .map(provider -> {
                     providerRepository.delete(provider);
                     providerRepository.flush();
-                    log.debug(PROVIDER_DELETED_IN_SERVICE, provider);
+                    log.info(PROVIDER_DELETED_IN_SERVICE, provider);
                     return true;
                 }).orElse(false);
     }

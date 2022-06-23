@@ -21,7 +21,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handle(ResourceNotFoundException e) {
         ResponseError responseError = new ResponseError(NOT_FOUND_CODE, e.getMessage());
-        log.debug(RESPONSE_ERROR_WAS_HANDLED_IN_CONTROLLER_ADVICE, responseError);
+        log.info(RESPONSE_ERROR_WAS_HANDLED_IN_CONTROLLER_ADVICE, responseError);
         return responseError;
     }
 
@@ -29,7 +29,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseError handle() {
         ResponseError responseError = new ResponseError(INTERNAL_SERVER_ERROR_CODE, INTERNAL_SERVER_ERROR_MSG);
-        log.debug(RESPONSE_ERROR_WAS_HANDLED_IN_CONTROLLER_ADVICE, responseError);
+        log.info(RESPONSE_ERROR_WAS_HANDLED_IN_CONTROLLER_ADVICE, responseError);
         return responseError;
     }
 }

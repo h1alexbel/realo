@@ -16,7 +16,7 @@ spring:
       date: iso
 logging:
   level:
-    root: DEBUG
+    root: INFO
     org.springframework.jdbc.core: DEBUG
   file:
     name: realo.log

@@ -36,14 +36,14 @@ public class ProviderRestController {
     @PostMapping
     public ProviderDto create(@RequestBody ProviderDto providerDto) {
         ProviderService saved = providerService;
-        log.debug(PROVIDER_WAS_SAVED_IN_CONTROLLER, saved);
+        log.info(PROVIDER_WAS_SAVED_IN_CONTROLLER, saved);
         return saved.save(providerDto);
     }
 
     @PutMapping("/{id}")
     public ProviderDto update(@PathVariable Long id, @RequestBody ProviderDto providerToUpdate) {
         ProviderDto updated = providerService.update(id, providerToUpdate);
-        log.debug(PROVIDER_WAS_UPDATED_IN_CONTROLLER, updated);
+        log.info(PROVIDER_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
     }
 

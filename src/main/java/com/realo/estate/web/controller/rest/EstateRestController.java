@@ -40,21 +40,21 @@ public class EstateRestController {
     @PostMapping
     public EstateDto create(@RequestBody EstateDto estateDto) {
         EstateDto saved = estateService.save(estateDto);
-        log.debug(ESTATE_WAS_SAVED_IN_CONTROLLER, saved);
+        log.info(ESTATE_WAS_SAVED_IN_CONTROLLER, saved);
         return saved;
     }
 
     @PutMapping("/{id}")
     public EstateDto update(@PathVariable Long id, @RequestBody EstateDto estateDto) {
         EstateDto updated = estateService.update(id, estateDto);
-        log.debug(ESTATE_WAS_UPDATED_IN_CONTROLLER, updated);
+        log.info(ESTATE_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
     }
 
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable EstateType type) {
         estateService.updateEstateTypeById(type, id);
-        log.debug(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, type);
+        log.info(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
     @DeleteMapping("/{id}")

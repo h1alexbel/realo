@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
             UserDto saved = saveUser(userDto, Role.USER);
-            log.debug(USER_SAVED_IN_SERVICE, saved);
+            log.info(USER_SAVED_IN_SERVICE, saved);
             return saved;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         if (!userRepository.existsByLogin(admin.getLogin())
             && !userRepository.existsByEmail(admin.getEmail())) {
             UserDto saved = saveUser(admin, Role.ADMIN);
-            log.debug(ADMIN_SAVED_IN_SERVICE, saved);
+            log.info(ADMIN_SAVED_IN_SERVICE, saved);
             return saved;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         if (!userRepository.existsByLogin(agent.getLogin())
             && !userRepository.existsByEmail(agent.getEmail())) {
             UserDto saved = saveUser(agent, Role.AGENT);
-            log.debug(AGENT_SAVED_IN_SERVICE, saved);
+            log.info(AGENT_SAVED_IN_SERVICE, saved);
             return saved;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
                     .map(userRepository::saveAndFlush)
                     .map(userMapper::toDto)
                     .orElseThrow(() -> new ResourceNotFoundException(USER_NOT_FOUND_MESSAGE));
-            log.debug(USER_UPDATED_IN_SERVICE, updated);
+            log.info(USER_UPDATED_IN_SERVICE, updated);
             return updated;
         }
         throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addAnnouncementToInterests(Long userId, Long announcementId) {
         userRepository.addToInterests(announcementId, userId);
-        log.debug(ADDED_TO_USER_INTEREST_WITH_ID, announcementId, userId);
+        log.info(ADDED_TO_USER_INTEREST_WITH_ID, announcementId, userId);
     }
 
     @Transactional
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
                 .map(user -> {
                     userRepository.delete(user);
                     userRepository.flush();
-                    log.debug(USER_WAS_DELETED_IN_SERVICE, user);
+                    log.info(USER_WAS_DELETED_IN_SERVICE, user);
                     return true;
                 }).orElse(false);
     }
