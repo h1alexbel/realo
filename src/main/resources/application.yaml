@@ -16,8 +16,13 @@ spring:
       date: iso
 logging:
   level:
-    root: INFO
+    root: DEBUG
     org.springframework.jdbc.core: DEBUG
   file:
     name: realo.log
     path: /
+jwt:
+  token:
+    secret: realo
+    expired: 900
+  header: Authorization
