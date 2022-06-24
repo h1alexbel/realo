@@ -4,6 +4,7 @@ import com.realo.estate.domain.dto.AnnouncementDto;
 import com.realo.estate.domain.mapper.AnnouncementMapper;
 import com.realo.estate.domain.persistence.announcement.Announcement;
 import com.realo.estate.domain.persistence.announcement.AnnouncementType;
+import com.realo.estate.exception.ClientStateException;
 import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.AnnouncementRepository;
 import com.realo.estate.repository.filter.AnnouncementFilter;
@@ -44,10 +45,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                     .map(announcementRepository::save)
                     .map(announcementMapper::toDto)
                     .orElseThrow();
-            log.debug(ANNOUNCEMENT_WAS_SAVED_IN_SERVICE, saved);
+            log.info(ANNOUNCEMENT_WAS_SAVED_IN_SERVICE, saved);
             return saved;
         }
-        throw new IllegalStateException(ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS);
+        throw new ClientStateException(ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional
@@ -62,7 +63,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .map(announcementRepository::saveAndFlush)
                 .map(announcementMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException(ANNOUNCEMENT_NOT_FOUND_MESSAGE));
-        log.debug(ANNOUNCEMENT_WAS_UPDATED_IN_SERVICE, updated);
+        log.info(ANNOUNCEMENT_WAS_UPDATED_IN_SERVICE, updated);
         return updated;
     }
 
@@ -73,7 +74,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .map(announcement -> {
                     announcementRepository.delete(announcement);
                     announcementRepository.flush();
-                    log.debug(ANNOUNCEMENT_WAS_DELETED_IN_SERVICE, announcement);
+                    log.info(ANNOUNCEMENT_WAS_DELETED_IN_SERVICE, announcement);
                     return true;
                 }).orElse(false);
     }
@@ -85,7 +86,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         maybeAnnouncement.ifPresent(announcement ->
                 announcementRepository
                         .updateAnnouncementTypeById(announcementType, announcement.getId()));
-        log.debug(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, announcementType);
+        log.info(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, announcementType);
     }
 
     @Transactional(readOnly = true)

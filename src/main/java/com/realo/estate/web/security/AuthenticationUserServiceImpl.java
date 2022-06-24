@@ -28,10 +28,10 @@ public class AuthenticationUserServiceImpl implements AuthenticationUserService 
             UserDto user = userService.findByLogin(username);
             User loadedUser = new User(user.getLogin(), user.getPassword(),
                     Collections.singletonList(user.getRole()));
-            log.debug(USER_WAS_FOUND_BY_USERNAME, loadedUser, username);
+            log.info(USER_WAS_FOUND_BY_USERNAME, loadedUser, username);
             return loadedUser;
         } catch (ResourceNotFoundException e) {
-            log.debug(USER_WAS_NOT_FOUND_WITH_USERNAME, username);
+            log.info(USER_WAS_NOT_FOUND_WITH_USERNAME, username);
             throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE + username);
         }
     }

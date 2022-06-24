@@ -35,12 +35,13 @@ public class AnnouncementRestController {
     private static final String ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER = "Announcement was saved in controller :{}";
     private static final String ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER = "Announcement was updated in controller :{}";
     private static final String ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE = "Announcement with id :{}, has updated type :{}";
+    private static final String ANNOUNCEMENT_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Announcement with id: {} was deleted in controller";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public AnnouncementDto createAnnouncement(@RequestBody AnnouncementDto announcementDto) {
         AnnouncementDto saved = announcementService.save(announcementDto);
-        log.debug(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
+        log.info(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
         return saved;
     }
 
@@ -49,21 +50,23 @@ public class AnnouncementRestController {
             @PathVariable Long id,
             @RequestBody AnnouncementDto announcementToUpdate) {
         AnnouncementDto updated = announcementService.update(id, announcementToUpdate);
-        log.debug(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
+        log.info(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
     }
 
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable AnnouncementType type) {
         announcementService.updateAnnouncementTypeById(type, id);
-        log.debug(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
+        log.info(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        return announcementService.deleteById(id)
+        ResponseEntity<Object> response = announcementService.deleteById(id)
                 ? noContent().build()
                 : notFound().build();
+        log.info(ANNOUNCEMENT_WITH_ID_WAS_DELETED_IN_CONTROLLER, id);
+        return response;
     }
 
     @ResponseStatus(HttpStatus.OK)

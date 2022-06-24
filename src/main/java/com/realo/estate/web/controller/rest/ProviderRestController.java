@@ -31,27 +31,30 @@ public class ProviderRestController {
     private final ProviderService providerService;
     private static final String PROVIDER_WAS_SAVED_IN_CONTROLLER = "Provider was saved in controller :{}";
     private static final String PROVIDER_WAS_UPDATED_IN_CONTROLLER = "Provider was updated in controller :{}";
+    private static final String PROVIDER_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Provider with id: {} was deleted in controller";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ProviderDto create(@RequestBody ProviderDto providerDto) {
         ProviderService saved = providerService;
-        log.debug(PROVIDER_WAS_SAVED_IN_CONTROLLER, saved);
+        log.info(PROVIDER_WAS_SAVED_IN_CONTROLLER, saved);
         return saved.save(providerDto);
     }
 
     @PutMapping("/{id}")
     public ProviderDto update(@PathVariable Long id, @RequestBody ProviderDto providerToUpdate) {
         ProviderDto updated = providerService.update(id, providerToUpdate);
-        log.debug(PROVIDER_WAS_UPDATED_IN_CONTROLLER, updated);
+        log.info(PROVIDER_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        return providerService.deleteById(id)
+        ResponseEntity<Object> response = providerService.deleteById(id)
                 ? noContent().build()
                 : notFound().build();
+        log.info(PROVIDER_WITH_ID_WAS_DELETED_IN_CONTROLLER, id);
+        return response;
     }
 
     @ResponseStatus(HttpStatus.OK)

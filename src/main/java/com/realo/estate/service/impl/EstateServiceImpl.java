@@ -39,7 +39,7 @@ public class EstateServiceImpl implements EstateService {
                 .map(estateRepository::save)
                 .map(estateMapper::toDto)
                 .orElseThrow();
-        log.debug(ESTATE_SAVED_IN_SERVICE, saved);
+        log.info(ESTATE_SAVED_IN_SERVICE, saved);
         return saved;
     }
 
@@ -55,7 +55,7 @@ public class EstateServiceImpl implements EstateService {
                 .map(estateRepository::saveAndFlush)
                 .map(estateMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException(ESTATE_NOT_FOUND_MESSAGE));
-        log.debug(ESTATE_UPDATED_IN_SERVICE, updated);
+        log.info(ESTATE_UPDATED_IN_SERVICE, updated);
         return updated;
     }
 
@@ -66,7 +66,7 @@ public class EstateServiceImpl implements EstateService {
                 .map(estate -> {
                     estateRepository.delete(estate);
                     estateRepository.flush();
-                    log.debug(ESTATE_DELETED_IN_SERVICE, estate);
+                    log.info(ESTATE_DELETED_IN_SERVICE, estate);
                     return true;
                 }).orElse(false);
     }
@@ -77,7 +77,7 @@ public class EstateServiceImpl implements EstateService {
         Optional<Estate> maybeEstate = estateRepository.findById(id);
         maybeEstate.ifPresent(estate ->
                 estateRepository.updateEstateTypeById(estateTypeToSet, estate.getId()));
-        log.debug(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, estateTypeToSet);
+        log.info(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, estateTypeToSet);
     }
 
     @Transactional(readOnly = true)
