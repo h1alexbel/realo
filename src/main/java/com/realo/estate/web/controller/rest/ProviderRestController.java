@@ -31,6 +31,7 @@ public class ProviderRestController {
     private final ProviderService providerService;
     private static final String PROVIDER_WAS_SAVED_IN_CONTROLLER = "Provider was saved in controller :{}";
     private static final String PROVIDER_WAS_UPDATED_IN_CONTROLLER = "Provider was updated in controller :{}";
+    private static final String PROVIDER_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Provider with id: {} was deleted in controller";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -49,9 +50,11 @@ public class ProviderRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        return providerService.deleteById(id)
+        ResponseEntity<Object> response = providerService.deleteById(id)
                 ? noContent().build()
                 : notFound().build();
+        log.info(PROVIDER_WITH_ID_WAS_DELETED_IN_CONTROLLER, id);
+        return response;
     }
 
     @ResponseStatus(HttpStatus.OK)
