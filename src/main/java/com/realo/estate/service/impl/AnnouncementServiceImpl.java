@@ -4,6 +4,7 @@ import com.realo.estate.domain.dto.AnnouncementDto;
 import com.realo.estate.domain.mapper.AnnouncementMapper;
 import com.realo.estate.domain.persistence.announcement.Announcement;
 import com.realo.estate.domain.persistence.announcement.AnnouncementType;
+import com.realo.estate.exception.ClientStateException;
 import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.AnnouncementRepository;
 import com.realo.estate.repository.filter.AnnouncementFilter;
@@ -47,7 +48,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             log.info(ANNOUNCEMENT_WAS_SAVED_IN_SERVICE, saved);
             return saved;
         }
-        throw new IllegalStateException(ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS);
+        throw new ClientStateException(ANNOUNCEMENT_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional

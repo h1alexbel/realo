@@ -7,10 +7,6 @@ import java.util.List;
 
 public interface UserService extends GenericCrudService<UserDto, Long> {
 
-    UserDto createAgentAccount(UserDto agent);
-
-    UserDto createAdminAccount(UserDto admin);
-
     void addAnnouncementToInterests(Long userId, Long announcementId);
 
     List<UserDto> findAll(UserFilter filter);

@@ -4,6 +4,7 @@ import com.realo.estate.domain.dto.UserDto;
 import com.realo.estate.domain.mapper.UserMapper;
 import com.realo.estate.domain.persistence.user.Role;
 import com.realo.estate.domain.persistence.user.User;
+import com.realo.estate.exception.ClientStateException;
 import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.UserRepository;
 import com.realo.estate.repository.filter.UserFilter;
@@ -41,35 +42,21 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         if (!userRepository.existsByLogin(userDto.getLogin())
             && !userRepository.existsByEmail(userDto.getEmail())) {
+            if (userDto.getRole().equals(Role.ADMIN)) {
+                UserDto adminAccount = createAdminAccount(userDto);
+                log.info(ADMIN_SAVED_IN_SERVICE, adminAccount);
+                return adminAccount;
+            }
+            if (userDto.getRole().equals(Role.AGENT)) {
+                UserDto agentAccount = createAgentAccount(userDto);
+                log.info(AGENT_SAVED_IN_SERVICE, agentAccount);
+                return agentAccount;
+            }
             UserDto saved = saveUser(userDto, Role.USER);
             log.info(USER_SAVED_IN_SERVICE, saved);
             return saved;
         }
-        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
-    }
-
-    @Transactional
-    @Override
-    public UserDto createAdminAccount(UserDto admin) {
-        if (!userRepository.existsByLogin(admin.getLogin())
-            && !userRepository.existsByEmail(admin.getEmail())) {
-            UserDto saved = saveUser(admin, Role.ADMIN);
-            log.info(ADMIN_SAVED_IN_SERVICE, saved);
-            return saved;
-        }
-        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
-    }
-
-    @Transactional
-    @Override
-    public UserDto createAgentAccount(UserDto agent) {
-        if (!userRepository.existsByLogin(agent.getLogin())
-            && !userRepository.existsByEmail(agent.getEmail())) {
-            UserDto saved = saveUser(agent, Role.AGENT);
-            log.info(AGENT_SAVED_IN_SERVICE, saved);
-            return saved;
-        }
-        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
+        throw new ClientStateException(USER_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional
@@ -89,7 +76,7 @@ public class UserServiceImpl implements UserService {
             log.info(USER_UPDATED_IN_SERVICE, updated);
             return updated;
         }
-        throw new IllegalStateException(USER_CREDENTIALS_ALREADY_EXISTS);
+        throw new ClientStateException(USER_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional
@@ -164,6 +151,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByLikedAnnouncement(title).stream()
                 .map(userMapper::toDto)
                 .collect(toList());
+    }
+
+    private UserDto createAdminAccount(UserDto admin) {
+        return saveUser(admin, Role.ADMIN);
+    }
+
+    private UserDto createAgentAccount(UserDto agent) {
+        return saveUser(agent, Role.AGENT);
     }
 
     private UserDto saveUser(UserDto userDto, Role role) {

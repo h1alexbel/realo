@@ -3,6 +3,7 @@ package com.realo.estate.service.impl;
 import com.realo.estate.domain.dto.ProviderDto;
 import com.realo.estate.domain.mapper.ProviderMapper;
 import com.realo.estate.domain.persistence.estate.Provider;
+import com.realo.estate.exception.ClientStateException;
 import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.repository.ProviderRepository;
 import com.realo.estate.service.ProviderService;
@@ -43,7 +44,7 @@ public class ProviderServiceImpl implements ProviderService {
             log.info(PROVIDER_SAVED_IN_SERVICE, saved);
             return saved;
         }
-        throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
+        throw new ClientStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
     }
 
     @Transactional
@@ -52,7 +53,7 @@ public class ProviderServiceImpl implements ProviderService {
         Objects.requireNonNull(providerDto);
         if (providerRepository.existsByName(providerDto.getName())
             && providerRepository.existsByWebSiteLink(providerDto.getWebSiteLink())) {
-            throw new IllegalStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
+            throw new ClientStateException(PROVIDER_CREDENTIALS_ALREADY_EXISTS);
         }
         ProviderDto updated = providerRepository.findById(id)
                 .map(entity -> {
