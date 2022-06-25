@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,14 +36,15 @@ public class ProviderRestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ProviderDto create(@RequestBody ProviderDto providerDto) {
+    public ProviderDto create(@RequestBody @Validated ProviderDto providerDto) {
         ProviderService saved = providerService;
         log.info(PROVIDER_WAS_SAVED_IN_CONTROLLER, saved);
         return saved.save(providerDto);
     }
 
     @PutMapping("/{id}")
-    public ProviderDto update(@PathVariable Long id, @RequestBody ProviderDto providerToUpdate) {
+    public ProviderDto update(
+            @PathVariable Long id, @RequestBody @Validated ProviderDto providerToUpdate) {
         ProviderDto updated = providerService.update(id, providerToUpdate);
         log.info(PROVIDER_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;
