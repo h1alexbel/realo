@@ -92,7 +92,7 @@ public class UserRestController {
         return userService.findAll();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/filter")
     public List<UserDto> getAll(@RequestBody UserFilter filter) {

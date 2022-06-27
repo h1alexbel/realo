@@ -94,7 +94,7 @@ public class AnnouncementRestController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/q")
+    @GetMapping("/title")
     public List<AnnouncementDto> getAllByTitleContaining(@RequestParam String title) {
         return announcementService.findAllByTitleContaining(title);
     }

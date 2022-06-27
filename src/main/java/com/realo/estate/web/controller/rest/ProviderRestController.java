@@ -76,7 +76,7 @@ public class ProviderRestController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/q")
+    @GetMapping("/name")
     public ProviderDto getByName(@RequestParam String name) {
         return providerService.findByName(name);
     }

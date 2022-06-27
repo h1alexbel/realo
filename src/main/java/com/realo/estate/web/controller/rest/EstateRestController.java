@@ -74,24 +74,28 @@ public class EstateRestController {
         return response;
     }
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<EstateDto> getAll() {
         return estateService.findAll();
     }
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/filter")
     public List<EstateDto> getAll(@RequestBody EstateFilter filter) {
         return estateService.findAll(filter);
     }
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public EstateDto getById(@PathVariable Long id) {
         return estateService.findById(id);
     }
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/type")
     public List<EstateDto> getAllByType(@RequestParam EstateType type) {

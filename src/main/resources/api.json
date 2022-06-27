@@ -29,8 +29,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -49,8 +49,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -98,8 +98,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -118,8 +118,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -157,8 +157,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -177,8 +177,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -218,8 +218,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -238,8 +238,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -287,8 +287,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -307,8 +307,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -346,8 +346,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -366,8 +366,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -407,8 +407,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -427,8 +427,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -476,8 +476,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -496,8 +496,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -535,8 +535,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -555,8 +555,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -596,8 +596,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -616,8 +616,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -665,8 +665,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -685,8 +685,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -724,8 +724,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -744,8 +744,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -767,25 +767,15 @@
         }
       }
     },
-    "/api/v1/users/register": {
-      "post": {
+    "/api/v1/users": {
+      "get": {
         "tags": [
           "user-rest-controller"
         ],
-        "operationId": "register",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            }
-          },
-          "required": true
-        },
+        "operationId": "getAll",
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -804,8 +794,69 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-rest-controller"
+        ],
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
           "400": {
             "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -854,8 +905,8 @@
           }
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -874,8 +925,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -907,8 +958,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -927,8 +978,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -957,8 +1008,8 @@
         ],
         "operationId": "getAll_2",
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -977,8 +1028,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1018,8 +1069,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1038,8 +1089,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1068,8 +1119,8 @@
         ],
         "operationId": "getAll_3",
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1088,8 +1139,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1129,8 +1180,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1149,8 +1200,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1189,8 +1240,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1209,8 +1260,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1239,8 +1290,8 @@
         ],
         "operationId": "getAll_5",
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1259,8 +1310,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1300,8 +1351,8 @@
           "required": true
         },
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1320,8 +1371,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1374,8 +1425,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1394,8 +1445,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1441,8 +1492,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1461,8 +1512,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1473,59 +1524,6 @@
           },
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/users": {
-      "get": {
-        "tags": [
-          "user-rest-controller"
-        ],
-        "operationId": "getAll",
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseError"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDto"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -1547,8 +1545,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1567,8 +1565,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1610,8 +1608,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1630,8 +1628,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1670,8 +1668,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1690,8 +1688,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1716,7 +1714,7 @@
         }
       }
     },
-    "/api/v1/providers/q": {
+    "/api/v1/providers/name": {
       "get": {
         "tags": [
           "provider-rest-controller"
@@ -1733,8 +1731,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1753,8 +1751,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1798,8 +1796,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1818,8 +1816,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1861,8 +1859,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1881,8 +1879,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1929,8 +1927,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -1949,8 +1947,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -1975,7 +1973,7 @@
         }
       }
     },
-    "/api/v1/announcements/q": {
+    "/api/v1/announcements/title": {
       "get": {
         "tags": [
           "announcement-rest-controller"
@@ -1992,8 +1990,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -2012,8 +2010,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -2055,8 +2053,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -2075,8 +2073,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -2118,8 +2116,8 @@
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
@@ -2138,8 +2136,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -2180,9 +2178,14 @@
         }
       },
       "ContactInfo": {
+        "required": [
+          "phoneNumber"
+        ],
         "type": "object",
         "properties": {
           "phoneNumber": {
+            "maxLength": 16,
+            "minLength": 10,
             "type": "string"
           },
           "preferredMessenger": {
@@ -2196,17 +2199,33 @@
         }
       },
       "UserAddress": {
+        "required": [
+          "country"
+        ],
         "type": "object",
         "properties": {
           "country": {
+            "maxLength": 32,
+            "minLength": 0,
             "type": "string"
           },
           "city": {
+            "maxLength": 48,
+            "minLength": 0,
             "type": "string"
           }
         }
       },
       "UserDto": {
+        "required": [
+          "email",
+          "firstName",
+          "gender",
+          "lastName",
+          "login",
+          "password",
+          "role"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2214,9 +2233,13 @@
             "format": "int64"
           },
           "firstName": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "lastName": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "gender": {
@@ -2228,20 +2251,26 @@
             ]
           },
           "login": {
+            "maxLength": 64,
+            "minLength": 3,
             "type": "string"
           },
           "password": {
+            "maxLength": 128,
+            "minLength": 8,
             "type": "string"
           },
           "email": {
+            "maxLength": 128,
+            "minLength": 0,
             "type": "string"
           },
           "role": {
             "type": "string",
             "enum": [
-              "Role.USER(permissions=[Permission.ESTATE_READ(permissionName=estate:read), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.ESTATE_WRITE(permissionName=estate:write)])",
-              "Role.AGENT(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.PROVIDER_READ(permissionName=provider:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read)])",
-              "Role.ADMIN(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.USER_READ(permissionName=user:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.USER_WRITE(permissionName=user:write)])"
+              "Role.USER(permissions=[Permission.PROVIDER_READ(permissionName=provider:read), Permission.ESTATE_WRITE(permissionName=estate:write), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.ESTATE_READ(permissionName=estate:read)])",
+              "Role.AGENT(permissions=[Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.PROVIDER_READ(permissionName=provider:read), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write)])",
+              "Role.ADMIN(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.USER_READ(permissionName=user:read), Permission.USER_WRITE(permissionName=user:write)])"
             ]
           },
           "userAddress": {
@@ -2253,6 +2282,10 @@
         }
       },
       "ProviderDto": {
+        "required": [
+          "name",
+          "webSiteLink"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2260,34 +2293,60 @@
             "format": "int64"
           },
           "name": {
+            "maxLength": 64,
+            "minLength": 3,
             "type": "string"
           },
           "webSiteLink": {
+            "maxLength": 256,
+            "minLength": 0,
             "type": "string"
           }
         }
       },
       "EstateAddress": {
+        "required": [
+          "city",
+          "closestMetroStation",
+          "country",
+          "street"
+        ],
         "type": "object",
         "properties": {
           "country": {
+            "maxLength": 32,
+            "minLength": 0,
             "type": "string"
           },
           "city": {
+            "maxLength": 32,
+            "minLength": 0,
             "type": "string"
           },
           "district": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "street": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "closestMetroStation": {
+            "maxLength": 128,
+            "minLength": 0,
             "type": "string"
           }
         }
       },
       "EstateDto": {
+        "required": [
+          "description",
+          "estateType",
+          "square",
+          "yearOfConstruction"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2310,6 +2369,8 @@
             "format": "double"
           },
           "description": {
+            "maxLength": 256,
+            "minLength": 0,
             "type": "string"
           },
           "yearOfConstruction": {
@@ -2322,6 +2383,10 @@
         }
       },
       "AnnouncementDto": {
+        "required": [
+          "announcementType",
+          "title"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2337,9 +2402,13 @@
             ]
           },
           "title": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "details": {
+            "maxLength": 512,
+            "minLength": 0,
             "type": "string"
           },
           "estate": {
@@ -2384,21 +2453,42 @@
         }
       },
       "RegisterRequest": {
+        "required": [
+          "country",
+          "email",
+          "firstName",
+          "gender",
+          "lastName",
+          "login",
+          "phoneNumber",
+          "rawPassword",
+          "role"
+        ],
         "type": "object",
         "properties": {
           "firstName": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "lastName": {
+            "maxLength": 64,
+            "minLength": 0,
             "type": "string"
           },
           "login": {
+            "maxLength": 64,
+            "minLength": 3,
             "type": "string"
           },
           "email": {
+            "maxLength": 128,
+            "minLength": 0,
             "type": "string"
           },
           "rawPassword": {
+            "maxLength": 128,
+            "minLength": 8,
             "type": "string"
           },
           "gender": {
@@ -2410,17 +2500,21 @@
             ]
           },
           "country": {
+            "maxLength": 32,
+            "minLength": 0,
             "type": "string"
           },
           "phoneNumber": {
+            "maxLength": 16,
+            "minLength": 10,
             "type": "string"
           },
           "role": {
             "type": "string",
             "enum": [
-              "Role.USER(permissions=[Permission.ESTATE_READ(permissionName=estate:read), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.ESTATE_WRITE(permissionName=estate:write)])",
-              "Role.AGENT(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.PROVIDER_READ(permissionName=provider:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read)])",
-              "Role.ADMIN(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.USER_READ(permissionName=user:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.USER_WRITE(permissionName=user:write)])"
+              "Role.USER(permissions=[Permission.PROVIDER_READ(permissionName=provider:read), Permission.ESTATE_WRITE(permissionName=estate:write), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.ESTATE_READ(permissionName=estate:read)])",
+              "Role.AGENT(permissions=[Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.PROVIDER_READ(permissionName=provider:read), Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write)])",
+              "Role.ADMIN(permissions=[Permission.ANNOUNCEMENT_WRITE(permissionName=announcement:write), Permission.PROVIDER_WRITE(permissionName=provider:write), Permission.ANNOUNCEMENT_READ(permissionName=announcement:read), Permission.PROVIDER_READ(permissionName=provider:read), Permission.USER_READ(permissionName=user:read), Permission.USER_WRITE(permissionName=user:write)])"
             ]
           }
         }
@@ -2463,12 +2557,20 @@
         }
       },
       "AuthenticationRequest": {
+        "required": [
+          "password",
+          "username"
+        ],
         "type": "object",
         "properties": {
           "username": {
+            "maxLength": 64,
+            "minLength": 3,
             "type": "string"
           },
           "password": {
+            "maxLength": 128,
+            "minLength": 8,
             "type": "string"
           }
         }
