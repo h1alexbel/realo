@@ -58,7 +58,7 @@ public class ProviderServiceImpl implements ProviderService {
         ProviderDto updated = providerRepository.findById(id)
                 .map(entity -> {
                     Provider provider = providerMapper.toEntity(providerDto);
-                    provider.setId(providerDto.getId());
+                    provider.setId(id);
                     return provider;
                 })
                 .map(providerRepository::saveAndFlush)

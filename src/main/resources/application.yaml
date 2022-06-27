@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: Realo-Api
   datasource:
     username: postgres
     password: pass
@@ -26,3 +28,12 @@ jwt:
     secret: realo
     expired: 900
   header: Authorization
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /system

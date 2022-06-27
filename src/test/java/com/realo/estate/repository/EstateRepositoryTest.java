@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class EstateRepositoryTest extends TestcontainersTest {
 
@@ -32,7 +33,8 @@ class EstateRepositoryTest extends TestcontainersTest {
             estateRepository.updateEstateTypeById(EstateType.LIVING, estate.getId());
             Optional<Estate> maybeEstateAfter = estateRepository.findById(estate.getId());
             assertThat(maybeEstateAfter).isNotEmpty();
-            assertThat(maybeEstateAfter.get().getEstateType()).isEqualTo(EstateType.LIVING);
+            assertSame(EstateType.LIVING,
+                    maybeEstateAfter.get().getEstateType());
         }
     }
 

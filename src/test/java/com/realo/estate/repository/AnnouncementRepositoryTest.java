@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AnnouncementRepositoryTest extends TestcontainersTest {
 
@@ -42,8 +43,8 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
             Optional<Announcement> maybeAnnouncementAfter = announcementRepo
                     .findById(announcement.getId());
             assertThat(maybeAnnouncementAfter).isNotEmpty();
-            assertThat(maybeAnnouncementAfter.get().getAnnouncementType())
-                    .isEqualTo(AnnouncementType.LONG_TERM_RENT);
+            assertSame(AnnouncementType.LONG_TERM_RENT,
+                    maybeAnnouncementAfter.get().getAnnouncementType());
         }
     }
 

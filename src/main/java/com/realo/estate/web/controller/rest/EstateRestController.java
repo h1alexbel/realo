@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,14 +40,15 @@ public class EstateRestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public EstateDto create(@RequestBody EstateDto estateDto) {
+    public EstateDto create(@RequestBody @Validated EstateDto estateDto) {
         EstateDto saved = estateService.save(estateDto);
         log.info(ESTATE_WAS_SAVED_IN_CONTROLLER, saved);
         return saved;
     }
 
     @PutMapping("/{id}")
-    public EstateDto update(@PathVariable Long id, @RequestBody EstateDto estateDto) {
+    public EstateDto update(
+            @PathVariable Long id, @RequestBody @Validated EstateDto estateDto) {
         EstateDto updated = estateService.update(id, estateDto);
         log.info(ESTATE_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;

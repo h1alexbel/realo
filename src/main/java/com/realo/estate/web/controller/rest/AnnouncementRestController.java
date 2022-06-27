@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,7 +40,7 @@ public class AnnouncementRestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public AnnouncementDto createAnnouncement(@RequestBody AnnouncementDto announcementDto) {
+    public AnnouncementDto createAnnouncement(@RequestBody @Validated AnnouncementDto announcementDto) {
         AnnouncementDto saved = announcementService.save(announcementDto);
         log.info(ANNOUNCEMENT_WAS_SAVED_IN_CONTROLLER, saved);
         return saved;
@@ -48,7 +49,7 @@ public class AnnouncementRestController {
     @PutMapping("/{id}")
     public AnnouncementDto update(
             @PathVariable Long id,
-            @RequestBody AnnouncementDto announcementToUpdate) {
+            @RequestBody @Validated AnnouncementDto announcementToUpdate) {
         AnnouncementDto updated = announcementService.update(id, announcementToUpdate);
         log.info(ANNOUNCEMENT_WAS_UPDATED_IN_CONTROLLER, updated);
         return updated;

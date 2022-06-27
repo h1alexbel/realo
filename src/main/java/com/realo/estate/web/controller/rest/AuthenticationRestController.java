@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class AuthenticationRestController {
     private static final String INVALID_USERNAME_PASSWORD_COMBINATION = "Invalid username/password combination";
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authRequest) {
+    public ResponseEntity<?> authenticate(@RequestBody @Validated AuthenticationRequest authRequest) {
         try {
             String username = authRequest.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,
