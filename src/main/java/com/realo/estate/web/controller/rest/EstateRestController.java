@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class EstateRestController {
     private static final String ESTATE_WITH_ID_HAS_UPDATED_TYPE = "Estate with id :{}, has updated type :{}";
     private static final String ESTATE_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Estate with id: {} was deleted in controller";
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public EstateDto create(@RequestBody @Validated EstateDto estateDto) {
@@ -46,6 +48,7 @@ public class EstateRestController {
         return saved;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public EstateDto update(
             @PathVariable Long id, @RequestBody @Validated EstateDto estateDto) {
@@ -54,12 +57,14 @@ public class EstateRestController {
         return updated;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable EstateType type) {
         estateService.updateEstateTypeById(type, id);
         log.info(ESTATE_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         ResponseEntity<Object> response = estateService.deleteById(id)
