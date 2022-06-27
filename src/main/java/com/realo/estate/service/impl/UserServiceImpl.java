@@ -62,21 +62,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto update(Long id, UserDto userDto) {
-        if (!userRepository.existsByLogin(userDto.getLogin())
-            && !userRepository.existsByEmail(userDto.getEmail())) {
-            UserDto updated = userRepository.findById(id)
-                    .map(entity -> {
-                        User user = userMapper.toEntity(userDto);
-                        user.setId(userDto.getId());
-                        return user;
-                    })
-                    .map(userRepository::saveAndFlush)
-                    .map(userMapper::toDto)
-                    .orElseThrow(() -> new ResourceNotFoundException(USER_NOT_FOUND_MESSAGE));
-            log.info(USER_UPDATED_IN_SERVICE, updated);
-            return updated;
-        }
-        throw new ClientStateException(USER_CREDENTIALS_ALREADY_EXISTS);
+        UserDto updated = userRepository.findById(id)
+                .map(entity -> {
+                    User user = userMapper.toEntity(userDto);
+                    user.setId(id);
+                    return user;
+                })
+                .map(userRepository::saveAndFlush)
+                .map(userMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException(USER_NOT_FOUND_MESSAGE));
+        log.info(USER_UPDATED_IN_SERVICE, updated);
+        return updated;
     }
 
     @Transactional

@@ -49,7 +49,7 @@ public class EstateServiceImpl implements EstateService {
         EstateDto updated = estateRepository.findById(id)
                 .map(entity -> {
                     Estate estate = estateMapper.toEntity(estateDto);
-                    estate.setId(estateDto.getId());
+                    estate.setId(id);
                     return estate;
                 })
                 .map(estateRepository::saveAndFlush)

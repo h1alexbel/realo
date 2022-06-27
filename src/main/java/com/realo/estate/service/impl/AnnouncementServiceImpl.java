@@ -57,7 +57,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         AnnouncementDto updated = announcementRepository.findById(id)
                 .map(entity -> {
                     Announcement announcement = announcementMapper.toEntity(announcementDto);
-                    announcement.setId(announcement.getId());
+                    announcement.setId(id);
                     return announcement;
                 })
                 .map(announcementRepository::saveAndFlush)
