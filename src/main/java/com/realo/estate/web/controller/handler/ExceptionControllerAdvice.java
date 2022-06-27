@@ -43,7 +43,9 @@ public class ExceptionControllerAdvice {
         Map<String, String> errorMap = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(fieldError ->
                 errorMap.put(fieldError.getField(), fieldError.getDefaultMessage()));
-        return new ResponseError(HttpStatus.BAD_REQUEST.value(), errorMap.toString());
+        ResponseError responseError = new ResponseError(HttpStatus.BAD_REQUEST.value(), errorMap.toString());
+        log.info(RESPONSE_ERROR_WAS_HANDLED_IN_CONTROLLER_ADVICE, responseError);
+        return responseError;
     }
 
     @ExceptionHandler(Exception.class)

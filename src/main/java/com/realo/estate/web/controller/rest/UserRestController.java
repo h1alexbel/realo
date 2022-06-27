@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -46,8 +46,8 @@ public class UserRestController {
     private static final String USER_WITH_ID_WAS_DELETED_IN_CONTROLLER = "User with id: {} was deleted in controller";
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/register")
-    public UserDto register(@RequestBody @Validated RegisterRequest registerRequest) {
+    @PostMapping
+    public UserDto createUser(@RequestBody @Validated RegisterRequest registerRequest) {
         UserDto userToSave = buildUserFromRegisterRequest(registerRequest);
         if (userToSave.getRole().equals(Role.ADMIN)) {
             throw new ClientStateException(USER_MUST_NOT_HAVE_ADMIN_AUTHORITIES);
@@ -57,6 +57,7 @@ public class UserRestController {
         return savedUser;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add-new-admin")
     public UserDto addNewAdmin(@RequestBody @Validated RegisterRequest registerRequest) {
@@ -66,6 +67,7 @@ public class UserRestController {
         return savedAdmin;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         ResponseEntity<Object> response = userService.deleteById(id)
@@ -75,6 +77,7 @@ public class UserRestController {
         return response;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public UserDto update(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
         UserDto updated = userService.update(id, userDto);
@@ -82,12 +85,14 @@ public class UserRestController {
         return updated;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<UserDto> getAll() {
         return userService.findAll();
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/filter")
     public List<UserDto> getAll(@RequestBody UserFilter filter) {
@@ -106,12 +111,14 @@ public class UserRestController {
         return userService.findByLogin(login);
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'AGENT')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/title")
     public List<UserDto> getAllByLikedAnnouncementTitle(@RequestParam String title) {
         return userService.findAllByLikedAnnouncement(title);
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'AGENT')")
     @PostMapping("/add-to-interests/{id}")
     public void addToInterest(@AuthenticationPrincipal User principal,
                               @PathVariable("id") Long announcementId) {

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class AnnouncementRestController {
     private static final String ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE = "Announcement with id :{}, has updated type :{}";
     private static final String ANNOUNCEMENT_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Announcement with id: {} was deleted in controller";
 
+    @PreAuthorize("hasAnyAuthority('AGENT', 'USER')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public AnnouncementDto createAnnouncement(@RequestBody @Validated AnnouncementDto announcementDto) {
@@ -46,6 +48,7 @@ public class AnnouncementRestController {
         return saved;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public AnnouncementDto update(
             @PathVariable Long id,
@@ -55,12 +58,14 @@ public class AnnouncementRestController {
         return updated;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}/{type}")
     public void updateType(@PathVariable Long id, @PathVariable AnnouncementType type) {
         announcementService.updateAnnouncementTypeById(type, id);
         log.info(ANNOUNCEMENT_WITH_ID_HAS_UPDATED_TYPE, id, type);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         ResponseEntity<Object> response = announcementService.deleteById(id)
@@ -89,7 +94,7 @@ public class AnnouncementRestController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/q")
+    @GetMapping("/title")
     public List<AnnouncementDto> getAllByTitleContaining(@RequestParam String title) {
         return announcementService.findAllByTitleContaining(title);
     }
