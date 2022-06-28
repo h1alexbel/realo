@@ -4,5 +4,5 @@
 |  |\  \  \   --. \ '-'  | |  | ' '-' '            |  |    \   --. .-'  `)   |  |
 `--' '--'  `----'  `--`--' `--'  `---'             `--'     `----' `----'    `--'
 
-https://github.com/h1alexbel/realo-REST/tree/main
+https://github.com/h1alexbel/realo
 Powered by Spring Boot ${spring-boot.version}

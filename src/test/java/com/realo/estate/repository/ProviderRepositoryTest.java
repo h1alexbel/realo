@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ProviderRepositoryTest extends TestcontainersTest {
 
-    private static final String A100_WEBSITE_LINK = "https://a-100development.by/";
-    private static final String A100_DEVELOPMENT = "A100 Development";
     @Autowired
     private ProviderRepository providerRepository;
+    private static final String A100_WEBSITE_LINK = "https://a-100development.by/";
+    private static final String A100_DEVELOPMENT = "A100 Development";
 
     @Test
     @DisplayName("Find by Provider name default test case")

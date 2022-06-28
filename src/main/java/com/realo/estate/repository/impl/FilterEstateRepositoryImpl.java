@@ -20,22 +20,28 @@ public class FilterEstateRepositoryImpl implements FilterEstateRepository {
 
     @Override
     public List<Estate> findByFilter(EstateFilter filter) {
-        Predicate predicate = QPredicates.builder()
-                .add(filter.getProviderName(), estate.provider.name::eq)
-                .add(filter.getCountry(), estate.address.country::eq)
-                .add(filter.getCity(), estate.address.city::eq)
-                .add(filter.getDistrict(), estate.address.district::eq)
-                .add(filter.getStreet(), estate.address.street::eq)
-                .add(filter.getMetroStation(), estate.address.closestMetroStation::eq)
-                .add(filter.getYearFrom(), estate.yearOfConstruction::goe)
-                .add(filter.getYearTo(), estate.yearOfConstruction::loe)
-                .add(filter.getSquareFrom(), estate.square::goe)
-                .add(filter.getSquareTo(), estate.square::loe)
-                .build();
+        if (filter != null) {
+            Predicate predicate = QPredicates.builder()
+                    .add(filter.getProviderName(), estate.provider.name::eq)
+                    .add(filter.getCountry(), estate.address.country::eq)
+                    .add(filter.getCity(), estate.address.city::eq)
+                    .add(filter.getDistrict(), estate.address.district::eq)
+                    .add(filter.getStreet(), estate.address.street::eq)
+                    .add(filter.getMetroStation(), estate.address.closestMetroStation::eq)
+                    .add(filter.getYearFrom(), estate.yearOfConstruction::goe)
+                    .add(filter.getYearTo(), estate.yearOfConstruction::loe)
+                    .add(filter.getSquareFrom(), estate.square::goe)
+                    .add(filter.getSquareTo(), estate.square::loe)
+                    .build();
+            return new JPAQuery<Estate>(entityManager)
+                    .select(estate)
+                    .from(estate)
+                    .where(predicate)
+                    .fetch();
+        }
         return new JPAQuery<Estate>(entityManager)
                 .select(estate)
                 .from(estate)
-                .where(predicate)
                 .fetch();
     }
 }

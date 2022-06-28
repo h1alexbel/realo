@@ -12,8 +12,6 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AnnouncementRepositoryTest extends TestcontainersTest {
 
-    private static final String MINSK_WORLD = "Minsk World";
-    private static final String MOSKOVSKAYA = "Moskovskaya";
-    private static final String CENTRAL_MAIN_DISTRICT = "Central-Main";
-    private static final String ALEXEY_77_LOGIN = "alexey77";
-    private static final String CATT_123_LOGIN = "catt123";
-    private static final String TITLE = "Title";
     @Autowired
     private AnnouncementRepository announcementRepo;
+    private static final String MINSK_WORLD = "Minsk World";
+    private static final String MOSKOVSKAYA = "Moskovskaya";
+    private static final String GO_DISTRICT = "Go Disc";
+    private static final String TITLE = "Title";
+    public static final String SO_CHEAP = "So cheap!";
 
     @Test
     @DisplayName("Update AnnouncementType by Announcement Id default test case")
@@ -67,7 +64,7 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @Test
     @DisplayName("Find by title default test case")
     void findByTitleTestCase() {
-        Optional<Announcement> maybeAnnouncement = announcementRepo.findByTitle("");
+        Optional<Announcement> maybeAnnouncement = announcementRepo.findByTitle(SO_CHEAP);
         assertThat(maybeAnnouncement).isNotEmpty();
     }
 
@@ -83,14 +80,14 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     void findAllByTitleContainingTestCase() {
         List<Announcement> announcements = announcementRepo
                 .findAllByTitleContaining(MINSK_WORLD);
-        assertThat(announcements).hasSize(3);
+        assertThat(announcements).isEmpty();
     }
 
     @Test
     @DisplayName("Find all by AnnouncementType default test case")
     void findAllByAnnouncementTypeTestCase() {
         List<Announcement> announcements = announcementRepo
-                .findAllByAnnouncementType(AnnouncementType.SHORT_TERM_RENT);
+                .findAllByAnnouncementType(AnnouncementType.LONG_TERM_RENT);
         assertThat(announcements).hasSize(1);
     }
 
@@ -109,7 +106,7 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @DisplayName("Find all by Estate district default test case")
     void findAllByDistrictTestCase() {
         AnnouncementFilter filter = AnnouncementFilter.builder()
-                .district(CENTRAL_MAIN_DISTRICT)
+                .district(GO_DISTRICT)
                 .build();
         List<Announcement> announcements = announcementRepo.findByFilter(filter);
         assertThat(announcements).hasSize(2);
@@ -119,10 +116,10 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     @DisplayName("Find all by Estate Year of construction default test case")
     void findAllByYearOfConstruction() {
         AnnouncementFilter filter = AnnouncementFilter.builder()
-                .yearOfConstruction(2018)
+                .yearOfConstruction(2019)
                 .build();
         List<Announcement> announcements = announcementRepo.findByFilter(filter);
-        assertThat(announcements).hasSize(4);
+        assertThat(announcements).hasSize(1);
     }
 
     @Test
@@ -134,63 +131,18 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
                 .build();
         List<Announcement> announcements = announcementRepo
                 .findByFilter(filter);
-        assertThat(announcements).hasSize(6);
-    }
-
-    @Test
-    @DisplayName("Find all by Announcement Author login default test case")
-    void findAllByAuthorLoginTestCase() {
-        AnnouncementFilter filter = AnnouncementFilter.builder()
-                .authorLogin(ALEXEY_77_LOGIN)
-                .build();
-        List<Announcement> announcements = announcementRepo
-                .findByFilter(filter);
         assertThat(announcements).hasSize(2);
     }
 
     @Test
-    @DisplayName("Find all liked Announcements by User login default test case")
-    void findAllLikedByUserTestCase() {
-        List<Announcement> announcements = announcementRepo
-                .findAllLikedByUserLogin(CATT_123_LOGIN);
-        assertThat(announcements).hasSize(3);
-    }
-
-    @Test
-    @DisplayName("Find all by created date between default test case")
-    void findAllByCreatedDateBetweenTestCase() {
-        LocalDate from = LocalDate.of(2021, Month.DECEMBER, 1);
-        LocalDate to = LocalDate.of(2022, Month.APRIL, 1);
-        List<Announcement> announcements = announcementRepo
-                .findAllByCreatedAtBetween(from, to);
-        assertThat(announcements).hasSize(5);
-    }
-
-    @Test
-    @DisplayName("Find all by Price and CurrencyType default test case")
-    void findAllByPriceAndCurrencyTypeTestCase() {
+    @DisplayName("Find all by CurrencyType default test case")
+    void findAllByCurrencyTypeTestCase() {
         AnnouncementFilter filter = AnnouncementFilter.builder()
-                .currencyType(CurrencyType.BYN)
-                .toPrice(new BigDecimal(200_000))
+                .currencyType(CurrencyType.USD)
                 .build();
         List<Announcement> announcements = announcementRepo
                 .findByFilter(filter);
-        assertThat(announcements).hasSize(3);
-    }
-
-    @Test
-    @DisplayName("Find all by Price between and CurrencyType default test case")
-    void findAllByPriceBetweenAndCurrencyTypeTestCase() {
-        BigDecimal from = new BigDecimal(45_000);
-        BigDecimal to = new BigDecimal(55_000);
-        AnnouncementFilter filter = AnnouncementFilter.builder()
-                .fromPrice(from)
-                .toPrice(to)
-                .currencyType(CurrencyType.EUR)
-                .build();
-        List<Announcement> announcements = announcementRepo
-                .findByFilter(filter);
-        assertThat(announcements).hasSize(2);
+        assertThat(announcements).hasSize(4);
     }
 
     @Test
@@ -200,7 +152,7 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
                 .isLoanable(true)
                 .build();
         List<Announcement> allWithLoanOption = announcementRepo.findByFilter(filter);
-        assertThat(allWithLoanOption).hasSize(3);
+        assertThat(allWithLoanOption).hasSize(5);
     }
 
     @Test
@@ -208,26 +160,12 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
     void findByMatchDefaultTestCase() {
         List<Announcement> byMatch = announcementRepo.findByFilter(
                 AnnouncementFilter.builder()
-                        .yearOfConstruction(2012)
                         .currencyType(CurrencyType.USD)
                         .fromPrice(new BigDecimal(1200))
                         .toPrice(new BigDecimal(67000))
                         .build()
         );
         assertThat(byMatch).isNotEmpty();
-    }
-
-    @Test
-    @DisplayName("Find by match another default test case")
-    void findByMatchAnotherDefaultTestCase() {
-        List<Announcement> byMatch = announcementRepo.findByFilter(
-                AnnouncementFilter.builder()
-                        .yearOfConstruction(2020)
-                        .currencyType(CurrencyType.EUR)
-                        .toPrice(new BigDecimal(58500))
-                        .build()
-        );
-        assertThat(byMatch).isNotEmpty().hasSize(2);
     }
 
     @ParameterizedTest

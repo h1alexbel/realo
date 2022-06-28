@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -133,14 +132,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public List<AnnouncementDto> findAllLikedByUserLogin(String login) {
         return announcementRepository.findAllLikedByUserLogin(login).stream()
-                .map(announcementMapper::toDto)
-                .collect(toList());
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<AnnouncementDto> findAllByCreatedAtBetween(LocalDate from, LocalDate to) {
-        return announcementRepository.findAllByCreatedAtBetween(from, to).stream()
                 .map(announcementMapper::toDto)
                 .collect(toList());
     }

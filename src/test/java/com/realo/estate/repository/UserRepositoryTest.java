@@ -17,18 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class UserRepositoryTest extends TestcontainersTest {
 
-    private static final String ANNOUNCEMENT_TITLE = "Сдам в аренду на длительный срок 1 комнатную квартиру в д. Копище, ул. Михайлашева, дом 5";
+    @Autowired
+    private UserRepository userRepository;
     private static final String BELARUS = "Belarus";
     private static final String IVANOV = "Ivanov";
     private static final String JOHN = "John";
     private static final String DOE = "Doe";
     private static final String O = "o";
     private static final String DOE_EMAIL = "doe@gmail.com";
-    private static final String DOE_LOGIN = "doe12345";
+    private static final String DOE_LOGIN = "jog123";
     private static final String CAT_LOGIN = "cat@cact";
     private static final String CAT_GMAIL = "cat@gmail.com";
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
     @DisplayName("Find by User login default test case")
@@ -76,7 +75,7 @@ class UserRepositoryTest extends TestcontainersTest {
     @DisplayName("Find all by User login containing test case")
     void findAllByLoginContainingTestCase() {
         List<User> users = userRepository.findAllByLoginContaining(O);
-        assertThat(users).hasSize(5);
+        assertThat(users).hasSize(1);
     }
 
     @Test
@@ -96,7 +95,7 @@ class UserRepositoryTest extends TestcontainersTest {
         UserFilter userFilter = UserFilter.builder()
                 .firstName(JOHN).build();
         List<User> johns = userRepository.findByFilter(userFilter);
-        assertThat(johns).hasSize(3);
+        assertThat(johns).hasSize(1);
     }
 
     @Test
@@ -106,7 +105,7 @@ class UserRepositoryTest extends TestcontainersTest {
                 .lastName(IVANOV)
                 .build();
         List<User> users = userRepository.findByFilter(userFilter);
-        assertThat(users).hasSize(5);
+        assertThat(users).isEmpty();
     }
 
     @Test
@@ -116,14 +115,7 @@ class UserRepositoryTest extends TestcontainersTest {
                 .country(BELARUS)
                 .build();
         List<User> usersFromBelarus = userRepository.findByFilter(userFilter);
-        assertThat(usersFromBelarus).hasSize(7);
-    }
-
-    @Test
-    @DisplayName("Find all by liked Announcement title default test case")
-    void findAllByLikedAnnouncementTitleTestCase() {
-        List<User> usersThatLike = userRepository.findAllByLikedAnnouncement(ANNOUNCEMENT_TITLE);
-        assertThat(usersThatLike).hasSize(2);
+        assertThat(usersFromBelarus).hasSize(1);
     }
 
     @ParameterizedTest
