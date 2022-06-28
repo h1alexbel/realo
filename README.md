@@ -1,5 +1,7 @@
 # Realo API
-[Docker Image](https://hub.docker.com/r/abialiauski/realo)
+[Docker Image](https://hub.docker.com/r/abialiauski/realo) 
+
+```` docker run -d --name realo -p 8080:8080 realo ````
 
 ![example workflow](https://github.com/h1alexbel/realo/actions/workflows/maven.yml/badge.svg)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/h1alexbel/realo)
