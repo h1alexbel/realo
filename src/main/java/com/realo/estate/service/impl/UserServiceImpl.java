@@ -127,22 +127,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<UserDto> findAllByLoginContaining(String login) {
-        return userRepository.findAllByLoginContaining(login).stream()
-                .map(userMapper::toDto)
-                .collect(toList());
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public UserDto findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .map(userMapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException(USER_NOT_FOUND_MESSAGE));
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public List<UserDto> findAllByLikedAnnouncement(String title) {
         return userRepository.findAllByLikedAnnouncement(title).stream()
                 .map(userMapper::toDto)

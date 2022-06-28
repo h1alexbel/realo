@@ -1,53 +1,46 @@
 package com.realo.estate.integration;
 
-import com.realo.estate.domain.persistence.estate.Provider;
+import com.realo.estate.domain.dto.ProviderDto;
+import com.realo.estate.exception.ResourceNotFoundException;
 import com.realo.estate.service.ProviderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ProviderServiceIT extends TestcontainersTest {
 
-    private static final String WE_CAPITAL = "WE Capital";
-    private static final String A_100_DEVELOPMENT = "A100 Development";
-    private static final String A_11_DEV = "A11 Dev";
     @Autowired
     private ProviderService providerService;
+    private static final String WE_CAPITAL = "WE Capital";
+    private static final String A100_DEVELOPMENT = "A100 Development";
 
     @Test
     @DisplayName("save Provider default test case")
     void saveProviderTestCase() {
-        Provider provider = Provider.builder()
+        ProviderDto providerDto = ProviderDto.builder()
                 .name(WE_CAPITAL)
                 .build();
-        Provider save = providerService.save(provider);
+        ProviderDto save = providerService.save(providerDto);
         assertThat(save.getId()).isNotNull();
     }
 
     @Test
-    @DisplayName("update provider default test case")
-    void updateProviderTestCase() {
-        Optional<Provider> maybeProvider = providerService.findByName(A_100_DEVELOPMENT);
-        maybeProvider.ifPresent(provider -> {
-            String nameToSet = A_11_DEV;
-            if (!providerService.isProviderExistsByName(nameToSet)) {
-                provider.setName(nameToSet);
-                providerService.update(provider);
-                assertThat(providerService.findByName(A_100_DEVELOPMENT)).isEmpty();
-                assertThat(providerService.findByName(A_11_DEV)).isNotEmpty();
-            }
-        });
+    @DisplayName("find by name default test case")
+    void findByNameTestCase() {
+        ProviderDto found = providerService.findByName(A100_DEVELOPMENT);
+        assertThat(found).isNotNull();
     }
 
-    @Test
-    @DisplayName("delete provider by id test case")
-    void deleteProviderTestCase() {
-        Optional<Provider> maybeProvider = providerService.findByName(A_100_DEVELOPMENT);
-        maybeProvider.ifPresent(provider ->
-                assertThat(providerService.deleteById(provider.getId())).isTrue());
+    @ParameterizedTest
+    @NullSource
+    @DisplayName("find by name null test case")
+    void findByNameNullCase(String name) {
+        assertThrows(ResourceNotFoundException.class,
+                () -> providerService.findByName(name));
     }
 }

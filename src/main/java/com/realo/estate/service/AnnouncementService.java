@@ -4,7 +4,6 @@ import com.realo.estate.domain.dto.AnnouncementDto;
 import com.realo.estate.domain.persistence.announcement.AnnouncementType;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface AnnouncementService extends GenericCrudService<AnnouncementDto, Long> {
@@ -20,6 +19,4 @@ public interface AnnouncementService extends GenericCrudService<AnnouncementDto,
     List<AnnouncementDto> findAllByAnnouncementType(AnnouncementType announcementType);
 
     List<AnnouncementDto> findAllLikedByUserLogin(String login);
-
-    List<AnnouncementDto> findAllByCreatedAtBetween(LocalDate from, LocalDate to);
 }
