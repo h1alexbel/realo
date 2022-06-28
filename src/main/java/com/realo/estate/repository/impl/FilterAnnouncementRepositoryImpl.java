@@ -20,26 +20,32 @@ public class FilterAnnouncementRepositoryImpl implements FilterAnnouncementRepos
 
     @Override
     public List<Announcement> findByFilter(AnnouncementFilter filter) {
-        Predicate predicate = QPredicates.builder()
-                .add(filter.getAnnouncementType(), announcement.announcementType::eq)
-                .add(filter.getCountry(), announcement.estate.address.country::eq)
-                .add(filter.getCity(), announcement.estate.address.city::eq)
-                .add(filter.getDistrict(), announcement.estate.address.district::eq)
-                .add(filter.getMetroStation(), announcement.estate.address.closestMetroStation::eq)
-                .add(filter.getCurrencyType(), announcement.paymentInfo.currencyType::eq)
-                .add(filter.getFromPrice(), announcement.paymentInfo.price::goe)
-                .add(filter.getToPrice(), announcement.paymentInfo.price::loe)
-                .add(filter.getYearOfConstruction(),
-                        announcement.estate.yearOfConstruction::eq)
-                .add(filter.getFromSquare(), announcement.estate.square::goe)
-                .add(filter.getToSquare(), announcement.estate.square::loe)
-                .add(filter.getIsLoanable(), announcement.paymentInfo.isLoanPossible::eq)
-                .add(filter.getAuthorLogin(), announcement.announcementAuthor.login::eq)
-                .build();
+        if (filter != null) {
+            Predicate predicate = QPredicates.builder()
+                    .add(filter.getAnnouncementType(), announcement.announcementType::eq)
+                    .add(filter.getCountry(), announcement.estate.address.country::eq)
+                    .add(filter.getCity(), announcement.estate.address.city::eq)
+                    .add(filter.getDistrict(), announcement.estate.address.district::eq)
+                    .add(filter.getMetroStation(), announcement.estate.address.closestMetroStation::eq)
+                    .add(filter.getCurrencyType(), announcement.paymentInfo.currencyType::eq)
+                    .add(filter.getFromPrice(), announcement.paymentInfo.price::goe)
+                    .add(filter.getToPrice(), announcement.paymentInfo.price::loe)
+                    .add(filter.getYearOfConstruction(),
+                            announcement.estate.yearOfConstruction::eq)
+                    .add(filter.getFromSquare(), announcement.estate.square::goe)
+                    .add(filter.getToSquare(), announcement.estate.square::loe)
+                    .add(filter.getIsLoanable(), announcement.paymentInfo.isLoanPossible::eq)
+                    .add(filter.getAuthorLogin(), announcement.announcementAuthor.login::eq)
+                    .build();
+            return new JPAQuery<Announcement>(entityManager)
+                    .select(announcement)
+                    .from(announcement)
+                    .where(predicate)
+                    .fetch();
+        }
         return new JPAQuery<Announcement>(entityManager)
                 .select(announcement)
                 .from(announcement)
-                .where(predicate)
                 .fetch();
     }
 }

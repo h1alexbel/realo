@@ -24,7 +24,7 @@ class EstateServiceIT extends TestcontainersTest {
         EstateDto estateDto = estateService.findById(1L);
         estateService.updateEstateTypeById(EstateType.COMMERCIAL, estateDto.getId());
         List<EstateDto> commercials = estateService.findAllByEstateType(EstateType.COMMERCIAL);
-        assertThat(commercials).hasSize(4);
+        assertThat(commercials).hasSize(6);
     }
 
     @Test

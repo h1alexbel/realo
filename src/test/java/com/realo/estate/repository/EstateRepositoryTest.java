@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 class EstateRepositoryTest extends TestcontainersTest {
 
-    private static final String MOSCOW = "Moscow";
-    private static final String UKRAINE = "Ukraine";
     @Autowired
     private EstateRepository estateRepository;
+    private static final String MOSCOW = "Moscow";
+    private static final String UKRAINE = "Ukraine";
 
     @Test
     @DisplayName("Update Estate type default test case")
@@ -45,13 +45,6 @@ class EstateRepositoryTest extends TestcontainersTest {
         assertDoesNotThrow(() -> estateRepository.updateEstateTypeById(EstateType.COMMERCIAL, id));
     }
 
-    @ParameterizedTest
-    @NullSource
-    @DisplayName("Update Estate type null EstateType case")
-    void updateEstateTypeNullCase(EstateType estateType) {
-        assertDoesNotThrow(() -> estateRepository.updateEstateTypeById(estateType, 1L));
-    }
-
     @Test
     @DisplayName("Find all by Provider name default test case")
     void findAllByProviderNameTestCase() {
@@ -59,7 +52,7 @@ class EstateRepositoryTest extends TestcontainersTest {
                 .providerName("A100 Development")
                 .build();
         List<Estate> estates = estateRepository.findByFilter(filter);
-        assertThat(estates).hasSize(1);
+        assertThat(estates).isNotEmpty();
     }
 
     @ParameterizedTest
@@ -73,7 +66,7 @@ class EstateRepositoryTest extends TestcontainersTest {
     @DisplayName("Find all by EstateType default test case")
     void findAllByEstateTypeTestCase() {
         List<Estate> houses = estateRepository.findAllByEstateType(EstateType.LIVING);
-        assertThat(houses).hasSize(2);
+        assertThat(houses).hasSize(1);
     }
 
     @Test
@@ -105,19 +98,19 @@ class EstateRepositoryTest extends TestcontainersTest {
                 .build();
         List<Estate> estates = estateRepository
                 .findByFilter(estateFilter);
-        assertThat(estates).hasSize(2);
+        assertThat(estates).hasSize(3);
     }
 
     @Test
     @DisplayName("Find all by Estate Square between two values default test case")
     void findAllBySquareBetweenTestCase() {
         EstateFilter estateFilter = EstateFilter.builder()
-                .squareFrom(45.0)
-                .squareTo(62.5)
+                .squareFrom(20.0)
+                .squareTo(120.00)
                 .build();
         List<Estate> estates = estateRepository
                 .findByFilter(estateFilter);
-        assertThat(estates).hasSize(5);
+        assertThat(estates).hasSize(7);
     }
 
     @ParameterizedTest

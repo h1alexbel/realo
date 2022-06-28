@@ -56,6 +56,6 @@ class AnnouncementServiceIT extends TestcontainersTest {
                 byTitle.getId());
         assertThat(announcementService
                 .findAllByAnnouncementType(AnnouncementType.SHORT_TERM_RENT))
-                .hasSize(1);
+                .hasSize(4);
     }
 }
