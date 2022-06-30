@@ -1,8 +1,9 @@
-package com.realo.estate.integration;
+package com.realo.estate.integration.service;
 
 import com.realo.estate.domain.dto.AnnouncementDto;
 import com.realo.estate.domain.persistence.announcement.AnnouncementType;
 import com.realo.estate.exception.ResourceNotFoundException;
+import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.AnnouncementFilter;
 import com.realo.estate.service.AnnouncementService;
 import org.junit.jupiter.api.DisplayName;

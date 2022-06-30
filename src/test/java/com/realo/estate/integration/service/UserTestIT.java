@@ -1,8 +1,9 @@
-package com.realo.estate.integration;
+package com.realo.estate.integration.service;
 
 import com.realo.estate.domain.dto.AnnouncementDto;
 import com.realo.estate.domain.dto.UserDto;
 import com.realo.estate.exception.ResourceNotFoundException;
+import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.UserFilter;
 import com.realo.estate.service.AnnouncementService;
 import com.realo.estate.service.UserService;

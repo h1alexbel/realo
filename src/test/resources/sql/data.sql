@@ -3,7 +3,7 @@ VALUES ('A100 Development', 'https://a-100development.by/');
 
 INSERT INTO user_storage.user_account(first_name, last_name, gender, login, password, email, role, country, city,
                                       phone_number, preferred_messenger)
-VALUES ('John', 'Doe', 'MALE', 'jog123', '1231fa', 'doe@gmail.com',
+VALUES ('John', 'Doe', 'MALE', 'jog123', '$2a$12$6WwjqpfIqzKs0wfSsl/aqe4j.T1BPb8xaSH/HMJvLAinZakKg3.pC', 'doe@gmail.com',
         'USER', 'Belarus', 'Minsk', '+189471', 'VIBER'),
 
        ('Alexey', 'Belyavsky', 'MALE', 'Alexey77',
