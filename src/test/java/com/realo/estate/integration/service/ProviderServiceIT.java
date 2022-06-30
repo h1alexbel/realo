@@ -1,7 +1,8 @@
-package com.realo.estate.integration;
+package com.realo.estate.integration.service;
 
 import com.realo.estate.domain.dto.ProviderDto;
 import com.realo.estate.exception.ResourceNotFoundException;
+import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.service.ProviderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

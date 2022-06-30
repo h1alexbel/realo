@@ -1,7 +1,8 @@
-package com.realo.estate.integration;
+package com.realo.estate.integration.service;
 
 import com.realo.estate.domain.dto.EstateDto;
 import com.realo.estate.domain.persistence.estate.EstateType;
+import com.realo.estate.integration.TestcontainersTest;
 import com.realo.estate.repository.filter.EstateFilter;
 import com.realo.estate.service.EstateService;
 import org.junit.jupiter.api.DisplayName;
