@@ -57,6 +57,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .map(entity -> {
                     Announcement announcement = announcementMapper.toEntity(announcementDto);
                     announcement.setId(id);
+                    Long estateId = announcementDto.getEstate().getId();
+                    Long providerId = announcementDto.getEstate().getProvider().getId();
+                    announcement.getEstate().setId(estateId);
+                    announcement.getEstate().getProvider().setId(providerId);
                     return announcement;
                 })
                 .map(announcementRepository::saveAndFlush)

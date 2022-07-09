@@ -50,6 +50,8 @@ public class EstateServiceImpl implements EstateService {
                 .map(entity -> {
                     Estate estate = estateMapper.toEntity(estateDto);
                     estate.setId(id);
+                    Long providerId = estateDto.getProvider().getId();
+                    estate.getProvider().setId(providerId);
                     return estate;
                 })
                 .map(estateRepository::saveAndFlush)
