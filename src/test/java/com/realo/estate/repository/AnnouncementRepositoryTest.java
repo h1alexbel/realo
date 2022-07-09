@@ -55,7 +55,7 @@ class AnnouncementRepositoryTest extends TestcontainersTest {
 
     @ParameterizedTest
     @NullSource
-    @DisplayName("")
+    @DisplayName("update announcement type null case")
     void updateAnnouncementTypeNullCase(AnnouncementType announcementType) {
         assertDoesNotThrow(() -> announcementRepo
                 .updateAnnouncementTypeById(announcementType, 1L));
