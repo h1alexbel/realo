@@ -25,20 +25,30 @@ Create open source Engine/API for real estate markets.
 # Requirements
 
 1.User authentication and authorization
+
 2.Create and track Providers of the Estates
+
 3.Create and track Estates
+
 4.Create and track Announcements
+
 5.Add Announcements of Estate sell to user's interests list
+
 6.Flexible data quering by the API filters
+
 
 # Not supported yet
 
+[Admin by default credentials](https://github.com/h1alexbel/realo/issues/18)
 
 ## Glossary 📝
-User - 
-Provider - 
-Estate - 
-Announcement - 
+1.User - the user/customer of the application.
+
+2.Provider - person, or an organization which can provide market with estates and its building.
+
+3.Estate - an extensive area of land in the country, usually with a large house, owned by one person, family, or organization.
+
+4.Announcement - a formal public statement about a estate on some resources/sites.
 
 # Architecture
 RESTful API created with N-tier architecture(Repository | Service | Controller)
