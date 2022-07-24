@@ -4,7 +4,7 @@ spring:
   datasource:
     username: postgres
     password: pass
-    url: jdbc:postgresql://localhost:5434/realo
+    url: jdbc:postgresql://host.docker.internal:5434/realo
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate:
