@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ClientStateException extends RuntimeException {
 
-    public ClientStateException() {
-        super();
-    }
+  public ClientStateException() {
+    super();
+  }
 
-    public ClientStateException(String message) {
-        super(message);
-    }
+  public ClientStateException(String message) {
+    super(message);
+  }
 
-    public ClientStateException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public ClientStateException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    public ClientStateException(Throwable cause) {
-        super(cause);
-    }
+  public ClientStateException(Throwable cause) {
+    super(cause);
+  }
 }

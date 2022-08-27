@@ -18,27 +18,27 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtTokenFilter extends GenericFilterBean {
 
-    private final JwtTokenProvider provider;
-    private static final String JWT_TOKEN_IS_EXPIRED_OR_INVALID = "JWT Token is expired or invalid";
+  private final JwtTokenProvider provider;
+  private static final String JWT_TOKEN_IS_EXPIRED_OR_INVALID = "JWT Token is expired or invalid";
 
-    @Override
-    public void doFilter
-            (ServletRequest servletRequest,
-             ServletResponse servletResponse,
-             FilterChain filterChain) throws IOException, ServletException {
-        try {
-            String token = provider.resolveToken((HttpServletRequest) servletRequest);
-            if (token != null && provider.validateToken(token)) {
-                Authentication authentication = provider.getAuthentication(token);
-                if (authentication != null) {
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
-        } catch (JwtAuthenticationException e) {
-            SecurityContextHolder.clearContext();
-            ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
-            throw new JwtAuthenticationException(JWT_TOKEN_IS_EXPIRED_OR_INVALID);
+  @Override
+  public void doFilter
+      (ServletRequest servletRequest,
+       ServletResponse servletResponse,
+       FilterChain filterChain) throws IOException, ServletException {
+    try {
+      String token = provider.resolveToken((HttpServletRequest) servletRequest);
+      if (token != null && provider.validateToken(token)) {
+        Authentication authentication = provider.getAuthentication(token);
+        if (authentication != null) {
+          SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+      }
+    } catch (JwtAuthenticationException e) {
+      SecurityContextHolder.clearContext();
+      ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
+      throw new JwtAuthenticationException(JWT_TOKEN_IS_EXPIRED_OR_INVALID);
     }
+    filterChain.doFilter(servletRequest, servletResponse);
+  }
 }

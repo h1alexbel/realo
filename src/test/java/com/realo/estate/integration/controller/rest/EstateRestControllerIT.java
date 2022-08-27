@@ -16,29 +16,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class EstateRestControllerIT extends TestcontainersTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-    private static final String TYPE_PARAM = "type";
+  private static final String TYPE_PARAM = "type";
 
-    @Test
-    @DisplayName("get all default test case")
-    void getAll() throws Exception {
-        mockMvc.perform(get(ESTATES_PATH))
-                .andExpect(status().is2xxSuccessful());
-    }
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    @DisplayName("get all by default test case")
-    void getAllByType() throws Exception {
-        mockMvc.perform(get(GET_ALL_ESTATES_BY_TYPE_ENDPOINT)
-                        .queryParam(TYPE_PARAM, "LIVING"))
-                .andExpect(status().is2xxSuccessful());
-    }
+  @Test
+  @DisplayName("get all by default test case")
+  void getAllByType() throws Exception {
+    mockMvc.perform(get(GET_ALL_ESTATES_BY_TYPE_ENDPOINT)
+            .queryParam(TYPE_PARAM, "LIVING"))
+        .andExpect(status().is2xxSuccessful());
+  }
 
-    @Test
-    @DisplayName("delete by id not found test case")
-    void deleteByIdNotFound() throws Exception {
-        mockMvc.perform(delete(ESTATES_PATH + "/1000"))
-                .andExpect(status().isNotFound());
-    }
+  @Test
+  @DisplayName("delete by id not found test case")
+  void deleteByIdNotFound() throws Exception {
+    mockMvc.perform(delete(ESTATES_PATH + "/1000"))
+        .andExpect(status().isNotFound());
+  }
 }
