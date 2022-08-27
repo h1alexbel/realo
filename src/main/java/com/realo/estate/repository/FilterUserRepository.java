@@ -1,8 +1,7 @@
 package com.realo.estate.repository;
 
-import com.realo.estate.domain.persistence.user.User;
-import com.realo.estate.repository.filter.FilterRepository;
-import com.realo.estate.repository.filter.UserFilter;
+import com.realo.estate.domain.user.User;
+import com.realo.estate.dto.UserFilter;
 
 public interface FilterUserRepository extends FilterRepository<User, UserFilter> {
 }

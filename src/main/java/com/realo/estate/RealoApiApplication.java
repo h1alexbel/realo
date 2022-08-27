@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RealoApiApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RealoApiApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(RealoApiApplication.class, args);
+  }
 }

@@ -1,17 +1,17 @@
 package com.realo.estate.service;
 
-import com.realo.estate.domain.dto.UserDto;
-import com.realo.estate.repository.filter.UserFilter;
+import com.realo.estate.dto.UserDto;
+import com.realo.estate.dto.UserFilter;
 
 import java.util.List;
 
 public interface UserService extends GenericCrudService<UserDto, Long> {
 
-    void addAnnouncementToInterests(Long userId, Long announcementId);
+  void addAnnouncementToInterests(Long userId, Long announcementId);
 
-    List<UserDto> findAll(UserFilter filter);
+  List<UserDto> findAll(UserFilter filter);
 
-    UserDto findByLogin(String login);
+  UserDto findByLogin(String login);
 
-    List<UserDto> findAllByLikedAnnouncement(String title);
+  List<UserDto> findAllByLikedAnnouncement(String title);
 }

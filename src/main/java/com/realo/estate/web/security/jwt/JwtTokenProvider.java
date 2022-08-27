@@ -23,63 +23,63 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final UserDetailsService userDetailsService;
-    @Value("${jwt.token.secret}")
-    private String jwtSecret;
-    @Value("${jwt.token.expired}")
-    private long expiredIn;
-    @Value("${jwt.header}")
-    private String authorizationHeader;
-    private static final String JWT_TOKEN_IS_EXPIRED_OR_INVALID = "JWT token is expired or invalid";
-    private static final int MILLIS_IN_MINUTE = 60000;
-    private static final String ROLE_KEY = "role";
-    private static final String EMPTY_CREDENTIALS = "";
+  private final UserDetailsService userDetailsService;
+  @Value("${jwt.token.secret}")
+  private String jwtSecret;
+  @Value("${jwt.token.expired}")
+  private long expiredIn;
+  @Value("${jwt.header}")
+  private String authorizationHeader;
+  private static final String JWT_TOKEN_IS_EXPIRED_OR_INVALID = "JWT token is expired or invalid";
+  private static final int MILLIS_IN_MINUTE = 60000;
+  private static final String ROLE_KEY = "role";
+  private static final String EMPTY_CREDENTIALS = "";
 
-    @PostConstruct
-    protected void init() {
-        Base64.getEncoder().encodeToString(jwtSecret.getBytes());
+  @PostConstruct
+  protected void init() {
+    Base64.getEncoder().encodeToString(jwtSecret.getBytes());
+  }
+
+  public String resolveToken(HttpServletRequest request) {
+    return request.getHeader(authorizationHeader);
+  }
+
+  public String createToken(String username, String role) {
+    Claims claims = Jwts.claims()
+        .setSubject(username);
+    claims.put(ROLE_KEY, role);
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + expiredIn * MILLIS_IN_MINUTE);
+
+    return Jwts.builder()
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .setExpiration(validity)
+        .signWith(SignatureAlgorithm.HS256, jwtSecret)
+        .compact();
+  }
+
+  public boolean validateToken(String token) {
+    try {
+      Jws<Claims> claimsJws = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+      return !claimsJws.getBody().getExpiration().before(new Date());
+    } catch (JwtException | IllegalArgumentException e) {
+      throw new JwtAuthenticationException(JWT_TOKEN_IS_EXPIRED_OR_INVALID,
+          HttpStatus.UNAUTHORIZED);
     }
+  }
 
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
-    }
+  public Authentication getAuthentication(String token) {
+    UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
+    return new UsernamePasswordAuthenticationToken(userDetails, EMPTY_CREDENTIALS,
+        userDetails.getAuthorities());
+  }
 
-    public String createToken(String username, String role) {
-        Claims claims = Jwts.claims()
-                .setSubject(username);
-        claims.put(ROLE_KEY, role);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + expiredIn * MILLIS_IN_MINUTE);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, jwtSecret)
-                .compact();
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException(JWT_TOKEN_IS_EXPIRED_OR_INVALID,
-                    HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, EMPTY_CREDENTIALS,
-                userDetails.getAuthorities());
-    }
-
-    private String getUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
+  private String getUsername(String token) {
+    return Jwts.parser()
+        .setSigningKey(jwtSecret)
+        .parseClaimsJws(token)
+        .getBody()
+        .getSubject();
+  }
 }

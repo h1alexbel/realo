@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface GenericCrudService<D extends Serializable, K extends Serializable> {
 
-    D save(D dto);
+  D save(D dto);
 
-    D update(K id, D dto);
+  D update(K id, D dto);
 
-    boolean deleteById(K id);
+  boolean deleteById(K id);
 
-    D findById(K id);
+  D findById(K id);
 
-    List<D> findAll();
+  List<D> findAll();
 }
