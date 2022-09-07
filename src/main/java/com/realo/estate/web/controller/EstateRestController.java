@@ -34,7 +34,6 @@ public class EstateRestController {
 
   private static final String ESTATE_WAS_SAVED_IN_CONTROLLER = "Estate was saved in controller :{}";
   private static final String ESTATE_WAS_UPDATED_IN_CONTROLLER = "Estate was updated in controller :{}";
-  private static final String ESTATE_WITH_ID_HAS_UPDATED_TYPE = "Estate with id :{}, has updated type :{}";
   private static final String ESTATE_WITH_ID_WAS_DELETED_IN_CONTROLLER = "Estate with id: {} was deleted in controller";
   private final EstateService estateService;
 
