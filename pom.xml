@@ -18,7 +18,7 @@
         <java.version>11</java.version>
         <openapi.version>1.6.12</openapi.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
-        <testcontainers.version>1.17.1</testcontainers.version>
+        <testcontainers.version>1.17.5</testcontainers.version>
         <querydsl.version>5.0.0</querydsl.version>
         <jjwt.version>0.9.1</jjwt.version>
     </properties>
