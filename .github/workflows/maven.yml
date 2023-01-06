@@ -14,7 +14,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean install
+        run: | 
+          export REALO_LOG_LEVEL=DEBUG
+          export JDBC_LOG_LEVEL=DEBUG
+          mvn clean install
       - name: Build and Push to Docker Hub
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
