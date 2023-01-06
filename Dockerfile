@@ -1,9 +1,9 @@
-FROM bellsoft/liberica-openjdk-alpine:11 as build
+FROM bellsoft/liberica-openjdk-alpine:19 as build
 WORKDIR application
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
-FROM bellsoft/liberica-openjdk-alpine:11
+FROM bellsoft/liberica-openjdk-alpine:19
 ENV TZ=Europe/Minsk
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR application
