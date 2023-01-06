@@ -1,39 +1,37 @@
+version: '3.8'
 services:
   postgres:
-    container_name: postgres
-    image: postgres
+    container_name: realo-postgres
+    image: postgres:14.6-alpine
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pass
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgresz
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "5434:5434"
+      - '5432:5432'
     networks:
-      - postgres
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      - realo
     volumes:
-      - pgadmin:/var/lib/pgadmin
-
+      - postgres:/var/lib/postgresql/data
+  app:
+    container_name: realo-api
+    env_file:
+      - default.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: realo:latest
     ports:
-      - "5050:80"
+      - "8080:8080"
     networks:
+      - realo
+    depends_on:
       - postgres
-    restart: unless-stopped
-
-networks:
-  postgres:
-    driver: bridge
-
 volumes:
   postgres:
-  pgadmin:
+    driver: local
+  minio:
+    driver: local
+networks:
+  realo:
+    driver: bridge

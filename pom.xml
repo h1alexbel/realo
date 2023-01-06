@@ -10,10 +10,9 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>RealEstateApp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>RealEstateApp</name>
     <description>RealEstateApp</description>
-
     <properties>
         <java.version>11</java.version>
         <openapi.version>1.6.13</openapi.version>
@@ -22,9 +21,7 @@
         <querydsl.version>5.0.0</querydsl.version>
         <jjwt.version>0.9.1</jjwt.version>
     </properties>
-
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -107,12 +104,9 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -125,7 +119,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -154,19 +147,16 @@
                             <artifactId>hibernate-jpamodelgen</artifactId>
                             <version>5.6.14.Final</version>
                         </path>
-
                         <path>
                             <groupId>javax.persistence</groupId>
                             <artifactId>javax.persistence-api</artifactId>
                             <version>2.2</version>
                         </path>
-
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>1.5.3.Final</version>
                         </path>
-
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
@@ -176,7 +166,6 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.querydsl</groupId>
                 <artifactId>querydsl-maven-plugin</artifactId>
