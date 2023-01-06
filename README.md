@@ -20,7 +20,7 @@ You need to have [```Docker```](https://www.docker.com), ```Java 11+```, and ```
 
 # Quick Start
 
-Run this script to start 3 containers: Realo-API,
+Run this script to start 2 containers: Realo-API,
 and [PostgreSQL](https://www.postgresql.org)
 
 ```shell
