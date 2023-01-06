@@ -31,7 +31,7 @@ public class JwtTokenProvider {
   @Value("${jwt.header}")
   private String authorizationHeader;
   private static final String JWT_TOKEN_IS_EXPIRED_OR_INVALID = "JWT token is expired or invalid";
-  private static final int MILLIS_IN_MINUTE = 60000;
+  private static final int MILLIS_IN_MINUTE = 60_000;
   private static final String ROLE_KEY = "role";
   private static final String EMPTY_CREDENTIALS = "";
 

@@ -27,7 +27,7 @@ logging:
 jwt:
   token:
     secret: realo
-    expired: 900
+    expired: 5
   header: Authorization
 management:
   endpoint:
