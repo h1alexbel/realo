@@ -2,9 +2,9 @@ spring:
   application:
     name: Realo-Api
   datasource:
-    username: postgres
-    password: pass
-    url: jdbc:postgresql://host.docker.internal:5434/realo
+    username: ${PG_USERNAME}
+    password: ${PG_PASSWORD}
+    url: jdbc:postgresql://${PG_HOST}:5432/postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate:
@@ -19,7 +19,8 @@ spring:
 logging:
   level:
     root: INFO
-    org.springframework.jdbc.core: DEBUG
+    com.realo: ${REALO_LOG_LEVEL}
+    org.springframework.jdbc.core: ${JDBC_LOG_LEVEL}
   file:
     name: realo.log
     path: /
