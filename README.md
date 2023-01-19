@@ -1,5 +1,6 @@
 ![mvn](https://github.com/h1alexbel/realo/actions/workflows/maven.yml/badge.svg)
 [![Docker](https://img.shields.io/docker/v/abialiauski/realo/latest)](https://hub.docker.com/repository/docker/abialiauski/realo/general)
+[![codecov](https://codecov.io/github/h1alexbel/realo/branch/main/graph/badge.svg?token=SQYcfchyTm)](https://codecov.io/github/h1alexbel/realo)
 [![Hits-of-Code](https://hitsofcode.com/github/h1alexbel/realo?branch=main)](https://hitsofcode.com/github/h1alexbel/realo/view?branch=main)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/h1alexbel/realo)
 
