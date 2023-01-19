@@ -20,26 +20,11 @@
  * SOFTWARE.
  */
 
-package com.realo.estate;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 /**
- * Entrance.
+ * Estate.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Aliaksei Bialiauski (abialiauski@solvd.com)
  * @since 0.0.1
  */
-@SpringBootApplication
-public class RealoApiApplication {
 
-  /**
-   * Application start.
-   *
-   * @param args Application args
-   */
-  public static void main(final String... args) {
-    SpringApplication.run(RealoApiApplication.class, args);
-  }
-}
+package com.realo.estate;
