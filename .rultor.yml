@@ -1,7 +1,0 @@
-architect:
-  - h1alexbel
-merge:
-  script: |
-    export REALO_LOG_LEVEL=DEBUG
-    export JDBC_LOG_LEVEL=DEBUG
-    mvn clean install

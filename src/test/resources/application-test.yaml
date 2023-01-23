@@ -1,4 +1,0 @@
-spring:
-  datasource:
-    username: test
-    password: test
