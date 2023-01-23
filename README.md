@@ -1,3 +1,6 @@
+[![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/rultor)](https://www.rultor.com/p/yegor256/rultor)
+<br>
+
 ![mvn](https://github.com/h1alexbel/realo/actions/workflows/maven.yml/badge.svg)
 [![Docker](https://img.shields.io/docker/v/abialiauski/realo/latest)](https://hub.docker.com/repository/docker/abialiauski/realo/general)
 [![codecov](https://codecov.io/github/h1alexbel/realo/branch/main/graph/badge.svg?token=SQYcfchyTm)](https://codecov.io/github/h1alexbel/realo)
