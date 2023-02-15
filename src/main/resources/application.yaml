@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Realo-Api
+    name: realo
   datasource:
     username: ${PG_USERNAME}
     password: ${PG_PASSWORD}
