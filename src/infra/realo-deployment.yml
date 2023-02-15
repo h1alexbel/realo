@@ -20,12 +20,24 @@ spec:
             - containerPort: 8080
           env:
             - name: REALO_LOG_LEVEL
-              value: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: realo-configmap
+                  key: REALO_LOG_LEVEL
             - name: JDBC_LOG_LEVEL
-              value: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: realo-configmap
+                  key: JDBC_LOG_LEVEL
             - name: PG_USERNAME
-              value: user
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secrets
+                  key: POSTGRES_USER
             - name: PG_PASSWORD
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secrets
+                  key: POSTGRES_PASSWORD
             - name: PG_HOST
               value: postgres
