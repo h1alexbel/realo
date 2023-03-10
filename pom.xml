@@ -15,7 +15,7 @@
   <description>RealEstateApp</description>
   <properties>
     <java.version>11</java.version>
-    <openapi.version>1.6.14</openapi.version>
+    <openapi.version>1.6.15</openapi.version>
     <mapstruct.version>1.5.3.Final</mapstruct.version>
     <testcontainers.version>1.17.6</testcontainers.version>
     <querydsl.version>5.0.0</querydsl.version>
