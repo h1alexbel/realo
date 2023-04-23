@@ -16,7 +16,7 @@
   <properties>
     <java.version>11</java.version>
     <openapi.version>1.7.0</openapi.version>
-    <mapstruct.version>1.5.3.Final</mapstruct.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
     <testcontainers.version>1.17.6</testcontainers.version>
     <querydsl.version>5.0.0</querydsl.version>
     <jjwt.version>0.9.1</jjwt.version>
@@ -155,7 +155,7 @@
             <path>
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
-              <version>1.5.3.Final</version>
+              <version>1.5.5.Final</version>
             </path>
             <path>
               <groupId>org.projectlombok</groupId>
