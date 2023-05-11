@@ -2,7 +2,7 @@ version: '3.8'
 services:
   postgres:
     container_name: realo-postgres
-    image: postgres:14.7-alpine
+    image: postgres:14.8-alpine
     restart: always
     environment:
       POSTGRES_USER: user
