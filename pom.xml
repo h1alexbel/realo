@@ -20,7 +20,7 @@
     <testcontainers.version>1.18.3</testcontainers.version>
     <querydsl.version>5.0.0</querydsl.version>
     <jjwt.version>0.9.1</jjwt.version>
-    <failsafe.version>3.1.0</failsafe.version>
+    <failsafe.version>3.1.2</failsafe.version>
   </properties>
   <dependencies>
     <dependency>
